@@ -17,7 +17,8 @@ import {
   ChevronRight,
   Compass,
   Calendar,
-  Star
+  Star,
+  CalendarDays
 } from 'lucide-react';
 
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -29,6 +30,7 @@ import InterviewSimulator from './features/InterviewSimulator';
 import AlumniNetworking from './features/AlumniNetworking';
 import StudyPlanner from './features/StudyPlanner';
 import FacultyReviews from './features/FacultyReviews';
+import ClassRoutine from './features/ClassRoutine';
 
 const DashboardHome = () => {
   const { user } = useAuth();
@@ -65,7 +67,7 @@ const DashboardHome = () => {
       <div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
           <h2 style={{ fontSize: '1.35rem', fontWeight: 700 }}>Featured Modules</h2>
-          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>7 Core Features Active</span>
+          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>8 Core Features Active</span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '22px' }}>
@@ -138,7 +140,24 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 5: Study Planner */}
+          {/* Card 5: Class Routine & Academic Calendar (NEW) */}
+          <Link to="/class-routine" className="card feature-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
+                <CalendarDays size={24} />
+              </div>
+              <span className="badge badge-primary">2026 Planner</span>
+            </div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Class Schedule & Calendar</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
+              Organize your weekly class slots and track official BRACU 2026 exam dates, holidays, and semester milestones.
+            </p>
+            <div className="card-footer-link">
+              <span>View Schedule</span> <ChevronRight size={16} />
+            </div>
+          </Link>
+
+          {/* Card 6: Study Planner */}
           <Link to="/study-planner" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
@@ -155,7 +174,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 6: Faculty Reviews */}
+          {/* Card 7: Faculty Reviews */}
           <Link to="/faculty-reviews" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#fffbeb', color: '#d97706', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(217, 119, 6, 0.15)' }}>
@@ -172,7 +191,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 7: Alumni Networking */}
+          {/* Card 8: Alumni Networking */}
           <Link to="/alumni-networking" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#ecfdf5', color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(16, 185, 129, 0.15)' }}>
@@ -189,7 +208,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 8: Profile & Settings */}
+          {/* Card 9: Profile & Settings */}
           <Link to="/profile" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#f1f5f9', color: '#475569', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -377,6 +396,13 @@ const NavigationSidebar = () => {
           </NavLink>
 
           <NavLink
+            to="/class-routine"
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <CalendarDays size={18} /> Class Schedule
+          </NavLink>
+
+          <NavLink
             to="/study-planner"
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
@@ -439,6 +465,7 @@ const AppRoutes = () => {
           <Route path="/resume-builder" element={<ResumeBuilder />} />
           <Route path="/cv-analyzer" element={<CVAnalyzer />} />
           <Route path="/job-finder" element={<JobFinder />} />
+          <Route path="/class-routine" element={<ClassRoutine />} />
           <Route path="/study-planner" element={<StudyPlanner />} />
           <Route path="/faculty-reviews" element={<FacultyReviews />} />
           <Route path="/interview-simulator" element={<InterviewSimulator />} />
