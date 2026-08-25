@@ -11,6 +11,10 @@ import jobRoutes from './routes/jobRoutes.js';
 import interviewRoutes from './routes/interviewRoutes.js';
 import alumniRoutes from './routes/alumniRoutes.js';
 import studyPlanRoutes from './routes/studyPlanRoutes.js';
+import cgpaRoutes from './routes/cgpaRoutes.js';
+import coursePlanRoutes from './routes/coursePlanRoutes.js';
+import classRoutineRoutes from './routes/classRoutineRoutes.js';
+import facultyReviewRoutes from './routes/facultyReviewRoutes.js';
 
 dotenv.config();
 
@@ -30,6 +34,10 @@ app.use('/api/jobs', jobRoutes);
 app.use('/api/interviews', interviewRoutes);
 app.use('/api/alumni', alumniRoutes);
 app.use('/api/study-plans', studyPlanRoutes);
+app.use('/api/cgpa', cgpaRoutes);
+app.use('/api/course-plans', coursePlanRoutes);
+app.use('/api/class-routines', classRoutineRoutes);
+app.use('/api/faculty-reviews', facultyReviewRoutes);
 
 // Health check endpoint
 app.get('/', (req, res) => {
