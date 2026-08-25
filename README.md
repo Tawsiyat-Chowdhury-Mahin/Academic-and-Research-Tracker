@@ -90,29 +90,37 @@ academic-and-research-tracker/
 
 ## 🗄️ Database Setup (MongoDB)
 
-You have **three flexible options** to run the database:
+### 👥 How Group Members Connect to the Common Shared Database (Cloud Atlas)
 
-### Option 1: MongoDB Atlas (Recommended for Group Collaboration)
-1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and create a free Shared Cluster.
-2. In Database Access, create a database user (e.g. `admin` and a password).
-3. In Network Access, allow access from anywhere (`0.0.0.0/0`).
-4. Click **Connect** → **Drivers** → Copy your connection string.
-5. In `backend/.env`, set:
+The project includes a centralized **MongoDB Atlas Cloud Database** so all group members share the same real-time data!
+
+1. In your `backend/` folder, create a file named `.env` (or copy `.env.example` to `.env`).
+2. Add the shared connection string:
    ```env
-   MONGO_URI=mongodb+srv://<username>:<password>@your-cluster.mongodb.net/academic_tracker_db?retryWrites=true&w=majority
+   PORT=5000
+   MONGO_URI=mongodb+srv://tawsiyatc_db_user:9Xgca5GSwU40ddyW@cluster0.wpuryjm.mongodb.net/academic_tracker_db?retryWrites=true&w=majority&appName=Cluster0
    ```
+3. **What this enables for the group**:
+   - **Shared User Accounts**: Accounts registered by one member can immediately be logged into by all other members.
+   - **Shared Data**: All resumes, CV match scores, job bookmarks, interview simulations, and alumni mentorship requests are synced across everyone's laptops in real time.
+4. **Inspecting Live Data in MongoDB Compass**:
+   - Download and open **MongoDB Compass** on your PC.
+   - Paste the `mongodb+srv://...` connection string from above and click **Connect**.
+   - You can visually view and edit all 6 collections: `users`, `alumnis`, `jobs`, `resumes`, `cvanalyses`, and `interviews`.
 
-### Option 2: Local MongoDB Community Server
-If you have MongoDB installed locally (or MongoDB Compass):
-1. Start your local MongoDB service.
-2. In `backend/.env`, set:
-   ```env
-   MONGO_URI=mongodb://127.0.0.1:27017/academic_tracker_db
-   ```
+---
 
-### Option 3: Zero-Config In-Memory Fallback (No MongoDB Required!)
-- If MongoDB is offline or not installed, the backend **will NOT crash**.
-- All controllers contain an automatic in-memory fallback pre-seeded with sample data. Group members can clone and run immediately without setting up a database!
+### Alternative Database Options:
+
+* **Local MongoDB Community Server**:
+  If you prefer running a local database instance:
+  ```env
+  MONGO_URI=mongodb://127.0.0.1:27017/academic_tracker_db
+  ```
+
+* **Zero-Config In-Memory Fallback (No MongoDB Required)**:
+  - If MongoDB is offline or inaccessible, the backend **will NEVER crash**.
+  - All controllers automatically activate an in-memory database pre-seeded with sample student accounts, jobs, and alumni so you can test features offline!
 
 ---
 
