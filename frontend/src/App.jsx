@@ -15,7 +15,12 @@ import {
   Sparkles,
   ArrowRight,
   ChevronRight,
-  Compass
+  Compass,
+  Calendar,
+  Star,
+  CalendarDays,
+  BookMarked,
+  Calculator
 } from 'lucide-react';
 
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -25,6 +30,11 @@ import CVAnalyzer from './features/CVAnalyzer';
 import JobFinder from './features/JobFinder';
 import InterviewSimulator from './features/InterviewSimulator';
 import AlumniNetworking from './features/AlumniNetworking';
+import StudyPlanner from './features/StudyPlanner';
+import FacultyReviews from './features/FacultyReviews';
+import ClassRoutine from './features/ClassRoutine';
+import CoursePlanner from './features/CoursePlanner';
+import CgpaCalculator from './features/CgpaCalculator';
 
 const DashboardHome = () => {
   const { user } = useAuth();
@@ -61,12 +71,97 @@ const DashboardHome = () => {
       <div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
           <h2 style={{ fontSize: '1.35rem', fontWeight: 700 }}>Featured Modules</h2>
-          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>5 Core Features Active</span>
+          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>10 Core Features Active</span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '22px' }}>
           
-          {/* Card 1: Resume Builder */}
+          {/* Card 1: CGPA Calculator (NEW) */}
+          <Link to="/cgpa-calculator" className="card feature-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
+                <Calculator size={24} />
+              </div>
+              <span className="badge badge-primary">BRACU 4.0 Scale</span>
+            </div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>CGPA Calculator</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
+              Calculate semester GPA, project overall cumulative CGPA, and launch the dedicated online BRACU CGPA web calculator.
+            </p>
+            <div className="card-footer-link">
+              <span>Calculate CGPA</span> <ChevronRight size={16} />
+            </div>
+          </Link>
+
+          {/* Card 2: Course Planning */}
+          <Link to="/course-planner" className="card feature-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
+                <BookMarked size={24} />
+              </div>
+              <span className="badge badge-primary">Advising & Prereqs</span>
+            </div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Course Planning</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
+              Suggests an optimized semester plan based on completed courses, prerequisites, and balanced credit workload.
+            </p>
+            <div className="card-footer-link">
+              <span>Plan Courses</span> <ChevronRight size={16} />
+            </div>
+          </Link>
+
+          {/* Card 3: Class Routine & Academic Calendar */}
+          <Link to="/class-routine" className="card feature-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
+                <CalendarDays size={24} />
+              </div>
+              <span className="badge badge-primary">2026 Planner</span>
+            </div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Class Schedule & Calendar</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
+              Organize your weekly class slots and track official BRACU 2026 exam dates, holidays, and semester milestones.
+            </p>
+            <div className="card-footer-link">
+              <span>View Schedule</span> <ChevronRight size={16} />
+            </div>
+          </Link>
+
+          {/* Card 4: Study Planner */}
+          <Link to="/study-planner" className="card feature-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
+                <Calendar size={24} />
+              </div>
+              <span className="badge badge-primary">Daily & Monthly</span>
+            </div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Study Planner</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
+              Generate personalized daily study timelines and monthly roadmaps aligned with course exams and assignment deadlines.
+            </p>
+            <div className="card-footer-link">
+              <span>Open Planner</span> <ChevronRight size={16} />
+            </div>
+          </Link>
+
+          {/* Card 5: Faculty Reviews */}
+          <Link to="/faculty-reviews" className="card feature-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#fffbeb', color: '#d97706', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(217, 119, 6, 0.15)' }}>
+                <Star size={24} />
+              </div>
+              <span className="badge badge-warning">G-Suite Reviews</span>
+            </div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Faculty Reviews</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
+              Explore transparent student evaluations, course advising ratings, and faculty feedback using G-Suite single sign-on.
+            </p>
+            <div className="card-footer-link">
+              <span>View Reviews</span> <ChevronRight size={16} />
+            </div>
+          </Link>
+
+          {/* Card 6: Resume Builder */}
           <Link to="/resume-builder" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
@@ -83,7 +178,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 2: CV Analyzer */}
+          {/* Card 7: CV Analyzer */}
           <Link to="/cv-analyzer" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#ecfdf5', color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(16, 185, 129, 0.15)' }}>
@@ -100,7 +195,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 3: Job Finder */}
+          {/* Card 8: Job Finder */}
           <Link to="/job-finder" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#fffbeb', color: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(245, 158, 11, 0.15)' }}>
@@ -117,24 +212,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 4: Interview Simulator */}
-          <Link to="/interview-simulator" className="card feature-card">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
-                <PlayCircle size={24} />
-              </div>
-              <span className="badge badge-primary">Voice & Timer</span>
-            </div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Interview Simulator</h3>
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
-              Practice technical interviews with automated Web Speech TTS audio read-aloud and a 60-second pressure countdown timer.
-            </p>
-            <div className="card-footer-link">
-              <span>Start Simulator</span> <ChevronRight size={16} />
-            </div>
-          </Link>
-
-          {/* Card 5: Alumni Networking */}
+          {/* Card 9: Alumni Networking */}
           <Link to="/alumni-networking" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#ecfdf5', color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(16, 185, 129, 0.15)' }}>
@@ -151,7 +229,24 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 6: Profile & Settings */}
+          {/* Card 10: Interview Simulator */}
+          <Link to="/interview-simulator" className="card feature-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
+                <PlayCircle size={24} />
+              </div>
+              <span className="badge badge-primary">Voice & Timer</span>
+            </div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Interview Simulator</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
+              Practice technical interviews with automated Web Speech TTS audio read-aloud and a 60-second pressure countdown timer.
+            </p>
+            <div className="card-footer-link">
+              <span>Start Simulator</span> <ChevronRight size={16} />
+            </div>
+          </Link>
+
+          {/* Card 11: Profile & Settings */}
           <Link to="/profile" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#f1f5f9', color: '#475569', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -183,6 +278,8 @@ const DashboardHome = () => {
           transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
           position: relative;
           overflow: hidden;
+          text-decoration: none;
+          color: inherit;
         }
         .feature-card:hover {
           transform: translateY(-5px);
@@ -309,6 +406,41 @@ const NavigationSidebar = () => {
           </NavLink>
 
           <NavLink 
+            to="/cgpa-calculator" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <Calculator size={18} /> CGPA Calculator
+          </NavLink>
+
+          <NavLink 
+            to="/course-planner" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <BookMarked size={18} /> Course Planning
+          </NavLink>
+
+          <NavLink 
+            to="/class-routine" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <CalendarDays size={18} /> Class Schedule
+          </NavLink>
+
+          <NavLink 
+            to="/study-planner" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <Calendar size={18} /> Study Planner
+          </NavLink>
+
+          <NavLink 
+            to="/faculty-reviews" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <Star size={18} /> Faculty Reviews
+          </NavLink>
+
+          <NavLink 
             to="/resume-builder" 
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
@@ -370,12 +502,10 @@ const AppRoutes = () => {
     );
   }
 
-  // If not logged in, show the Centered Login & Registration Page
   if (!isAuthenticated) {
     return <AuthPage />;
   }
 
-  // Once authenticated, show full portal with sidebar & features
   return (
     <div className="app-container">
       <NavigationSidebar />
@@ -384,6 +514,11 @@ const AppRoutes = () => {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<DashboardHome />} />
+          <Route path="/cgpa-calculator" element={<CgpaCalculator />} />
+          <Route path="/course-planner" element={<CoursePlanner />} />
+          <Route path="/class-routine" element={<ClassRoutine />} />
+          <Route path="/study-planner" element={<StudyPlanner />} />
+          <Route path="/faculty-reviews" element={<FacultyReviews />} />
           <Route path="/resume-builder" element={<ResumeBuilder />} />
           <Route path="/cv-analyzer" element={<CVAnalyzer />} />
           <Route path="/job-finder" element={<JobFinder />} />
