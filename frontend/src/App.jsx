@@ -19,7 +19,8 @@ import {
   Calendar,
   Star,
   CalendarDays,
-  BookMarked
+  BookMarked,
+  Calculator
 } from 'lucide-react';
 
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -33,6 +34,7 @@ import StudyPlanner from './features/StudyPlanner';
 import FacultyReviews from './features/FacultyReviews';
 import ClassRoutine from './features/ClassRoutine';
 import CoursePlanner from './features/CoursePlanner';
+import CgpaCalculator from './features/CgpaCalculator';
 
 const DashboardHome = () => {
   const { user } = useAuth();
@@ -69,63 +71,29 @@ const DashboardHome = () => {
       <div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
           <h2 style={{ fontSize: '1.35rem', fontWeight: 700 }}>Featured Modules</h2>
-          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>9 Core Features Active</span>
+          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>10 Core Features Active</span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '22px' }}>
           
-          {/* Card 1: Resume Builder */}
-          <Link to="/resume-builder" className="card feature-card">
+          {/* Card 1: CGPA Calculator (NEW) */}
+          <Link to="/cgpa-calculator" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
-                <FileText size={24} />
+                <Calculator size={24} />
               </div>
-              <span className="badge badge-primary">Templates & PDF</span>
+              <span className="badge badge-primary">BRACU 4.0 Scale</span>
             </div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Resume Builder</h3>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>CGPA Calculator</h3>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
-              Compile professional academic & industry resumes with live Classic Academic and Modern Corporate templates.
+              Calculate semester GPA, project overall cumulative CGPA, and launch the dedicated online BRACU CGPA web calculator.
             </p>
             <div className="card-footer-link">
-              <span>Open Builder</span> <ChevronRight size={16} />
+              <span>Calculate CGPA</span> <ChevronRight size={16} />
             </div>
           </Link>
 
-          {/* Card 2: CV Analyzer */}
-          <Link to="/cv-analyzer" className="card feature-card">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#ecfdf5', color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(16, 185, 129, 0.15)' }}>
-                <Cpu size={24} />
-              </div>
-              <span className="badge badge-success">Match Scoring</span>
-            </div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>CV Match Analyzer</h3>
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
-              Scan your CV against job descriptions to compute categorized fit percentages across Languages, Frameworks, and Tools.
-            </p>
-            <div className="card-footer-link">
-              <span>Analyze CV</span> <ChevronRight size={16} />
-            </div>
-          </Link>
-
-          {/* Card 3: Job Finder */}
-          <Link to="/job-finder" className="card feature-card">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#fffbeb', color: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(245, 158, 11, 0.15)' }}>
-                <Briefcase size={24} />
-              </div>
-              <span className="badge badge-warning">Internships</span>
-            </div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Job & Intern Finder</h3>
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
-              Search open software and research internships, filter by tags, and save postings in your local bookmarks tab.
-            </p>
-            <div className="card-footer-link">
-              <span>Browse Jobs</span> <ChevronRight size={16} />
-            </div>
-          </Link>
-
-          {/* Card 4: Course Planning & Prereq Optimizer (NEW) */}
+          {/* Card 2: Course Planning */}
           <Link to="/course-planner" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
@@ -142,7 +110,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 5: Class Routine & Academic Calendar */}
+          {/* Card 3: Class Routine & Academic Calendar */}
           <Link to="/class-routine" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
@@ -159,7 +127,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 6: Study Planner */}
+          {/* Card 4: Study Planner */}
           <Link to="/study-planner" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
@@ -176,7 +144,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 7: Faculty Reviews */}
+          {/* Card 5: Faculty Reviews */}
           <Link to="/faculty-reviews" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#fffbeb', color: '#d97706', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(217, 119, 6, 0.15)' }}>
@@ -193,7 +161,58 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 8: Alumni Networking */}
+          {/* Card 6: Resume Builder */}
+          <Link to="/resume-builder" className="card feature-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
+                <FileText size={24} />
+              </div>
+              <span className="badge badge-primary">Templates & PDF</span>
+            </div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Resume Builder</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
+              Compile professional academic & industry resumes with live Classic Academic and Modern Corporate templates.
+            </p>
+            <div className="card-footer-link">
+              <span>Open Builder</span> <ChevronRight size={16} />
+            </div>
+          </Link>
+
+          {/* Card 7: CV Analyzer */}
+          <Link to="/cv-analyzer" className="card feature-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#ecfdf5', color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(16, 185, 129, 0.15)' }}>
+                <Cpu size={24} />
+              </div>
+              <span className="badge badge-success">Match Scoring</span>
+            </div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>CV Match Analyzer</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
+              Scan your CV against job descriptions to compute categorized fit percentages across Languages, Frameworks, and Tools.
+            </p>
+            <div className="card-footer-link">
+              <span>Analyze CV</span> <ChevronRight size={16} />
+            </div>
+          </Link>
+
+          {/* Card 8: Job Finder */}
+          <Link to="/job-finder" className="card feature-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#fffbeb', color: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(245, 158, 11, 0.15)' }}>
+                <Briefcase size={24} />
+              </div>
+              <span className="badge badge-warning">Internships</span>
+            </div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Job & Intern Finder</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
+              Search open software and research internships, filter by tags, and save postings in your local bookmarks tab.
+            </p>
+            <div className="card-footer-link">
+              <span>Browse Jobs</span> <ChevronRight size={16} />
+            </div>
+          </Link>
+
+          {/* Card 9: Alumni Networking */}
           <Link to="/alumni-networking" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#ecfdf5', color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(16, 185, 129, 0.15)' }}>
@@ -210,7 +229,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 9: Interview Simulator */}
+          {/* Card 10: Interview Simulator */}
           <Link to="/interview-simulator" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
@@ -227,7 +246,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 10: Profile & Settings */}
+          {/* Card 11: Profile & Settings */}
           <Link to="/profile" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#f1f5f9', color: '#475569', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -387,6 +406,13 @@ const NavigationSidebar = () => {
           </NavLink>
 
           <NavLink 
+            to="/cgpa-calculator" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <Calculator size={18} /> CGPA Calculator
+          </NavLink>
+
+          <NavLink 
             to="/course-planner" 
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
@@ -488,6 +514,7 @@ const AppRoutes = () => {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<DashboardHome />} />
+          <Route path="/cgpa-calculator" element={<CgpaCalculator />} />
           <Route path="/course-planner" element={<CoursePlanner />} />
           <Route path="/class-routine" element={<ClassRoutine />} />
           <Route path="/study-planner" element={<StudyPlanner />} />
