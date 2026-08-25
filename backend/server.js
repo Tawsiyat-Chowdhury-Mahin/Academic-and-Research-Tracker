@@ -10,6 +10,7 @@ import cvAnalyzerRoutes from './routes/cvAnalyzerRoutes.js';
 import jobRoutes from './routes/jobRoutes.js';
 import interviewRoutes from './routes/interviewRoutes.js';
 import alumniRoutes from './routes/alumniRoutes.js';
+import studyPlanRoutes from './routes/studyPlanRoutes.js';
 
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use('/api/cv-analyses', cvAnalyzerRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api/interviews', interviewRoutes);
 app.use('/api/alumni', alumniRoutes);
+app.use('/api/study-plans', studyPlanRoutes);
 
 // Health check endpoint
 app.get('/', (req, res) => {
