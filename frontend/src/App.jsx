@@ -18,7 +18,8 @@ import {
   Compass,
   Calendar,
   Star,
-  CalendarDays
+  CalendarDays,
+  BookMarked
 } from 'lucide-react';
 
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -31,6 +32,7 @@ import AlumniNetworking from './features/AlumniNetworking';
 import StudyPlanner from './features/StudyPlanner';
 import FacultyReviews from './features/FacultyReviews';
 import ClassRoutine from './features/ClassRoutine';
+import CoursePlanner from './features/CoursePlanner';
 
 const DashboardHome = () => {
   const { user } = useAuth();
@@ -67,7 +69,7 @@ const DashboardHome = () => {
       <div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
           <h2 style={{ fontSize: '1.35rem', fontWeight: 700 }}>Featured Modules</h2>
-          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>8 Core Features Active</span>
+          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>9 Core Features Active</span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '22px' }}>
@@ -123,24 +125,24 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 4: Interview Simulator */}
-          <Link to="/interview-simulator" className="card feature-card">
+          {/* Card 4: Course Planning & Prereq Optimizer (NEW) */}
+          <Link to="/course-planner" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
-                <PlayCircle size={24} />
+                <BookMarked size={24} />
               </div>
-              <span className="badge badge-primary">Voice & Timer</span>
+              <span className="badge badge-primary">Advising & Prereqs</span>
             </div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Interview Simulator</h3>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Course Planning</h3>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
-              Practice technical interviews with automated Web Speech TTS audio read-aloud and a 60-second pressure countdown timer.
+              Suggests an optimized semester plan based on completed courses, prerequisites, and balanced credit workload.
             </p>
             <div className="card-footer-link">
-              <span>Start Simulator</span> <ChevronRight size={16} />
+              <span>Plan Courses</span> <ChevronRight size={16} />
             </div>
           </Link>
 
-          {/* Card 5: Class Routine & Academic Calendar (NEW) */}
+          {/* Card 5: Class Routine & Academic Calendar */}
           <Link to="/class-routine" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
@@ -208,7 +210,24 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 9: Profile & Settings */}
+          {/* Card 9: Interview Simulator */}
+          <Link to="/interview-simulator" className="card feature-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
+                <PlayCircle size={24} />
+              </div>
+              <span className="badge badge-primary">Voice & Timer</span>
+            </div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Interview Simulator</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
+              Practice technical interviews with automated Web Speech TTS audio read-aloud and a 60-second pressure countdown timer.
+            </p>
+            <div className="card-footer-link">
+              <span>Start Simulator</span> <ChevronRight size={16} />
+            </div>
+          </Link>
+
+          {/* Card 10: Profile & Settings */}
           <Link to="/profile" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#f1f5f9', color: '#475569', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -368,6 +387,34 @@ const NavigationSidebar = () => {
           </NavLink>
 
           <NavLink 
+            to="/course-planner" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <BookMarked size={18} /> Course Planning
+          </NavLink>
+
+          <NavLink 
+            to="/class-routine" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <CalendarDays size={18} /> Class Schedule
+          </NavLink>
+
+          <NavLink 
+            to="/study-planner" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <Calendar size={18} /> Study Planner
+          </NavLink>
+
+          <NavLink 
+            to="/faculty-reviews" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <Star size={18} /> Faculty Reviews
+          </NavLink>
+
+          <NavLink 
             to="/resume-builder" 
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
@@ -393,27 +440,6 @@ const NavigationSidebar = () => {
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
             <PlayCircle size={18} /> Interview Simulator
-          </NavLink>
-
-          <NavLink
-            to="/class-routine"
-            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-          >
-            <CalendarDays size={18} /> Class Schedule
-          </NavLink>
-
-          <NavLink
-            to="/study-planner"
-            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-          >
-            <Calendar size={18} /> Study Planner
-          </NavLink>
-
-          <NavLink
-            to="/faculty-reviews"
-            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-          >
-            <Star size={18} /> Faculty Reviews
           </NavLink>
 
           <NavLink 
@@ -462,12 +488,13 @@ const AppRoutes = () => {
       <main className="main-content">
         <Routes>
           <Route path="/" element={<DashboardHome />} />
-          <Route path="/resume-builder" element={<ResumeBuilder />} />
-          <Route path="/cv-analyzer" element={<CVAnalyzer />} />
-          <Route path="/job-finder" element={<JobFinder />} />
+          <Route path="/course-planner" element={<CoursePlanner />} />
           <Route path="/class-routine" element={<ClassRoutine />} />
           <Route path="/study-planner" element={<StudyPlanner />} />
           <Route path="/faculty-reviews" element={<FacultyReviews />} />
+          <Route path="/resume-builder" element={<ResumeBuilder />} />
+          <Route path="/cv-analyzer" element={<CVAnalyzer />} />
+          <Route path="/job-finder" element={<JobFinder />} />
           <Route path="/interview-simulator" element={<InterviewSimulator />} />
           <Route path="/alumni-networking" element={<AlumniNetworking />} />
           <Route path="/profile" element={<AuthPage />} />
