@@ -10,7 +10,6 @@ const alumniSchema = mongoose.Schema(
     skills: [{ type: String }],
     email: { type: String, required: true },
     linkedin: { type: String, default: '' },
-    github: { type: String, default: '' },
     bio: { type: String, default: '' },
   },
   {
