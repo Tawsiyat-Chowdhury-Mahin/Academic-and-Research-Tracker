@@ -192,8 +192,10 @@ export const submitInterview = async (req, res) => {
       const matched = q.keywords.filter(kw => lowerAnswer.includes(kw.toLowerCase()));
       const percentage = q.keywords.length > 0 ? Math.round((matched.length / q.keywords.length) * 100) : 100;
       
-      let itemScore = Math.min(100, Math.max(30, percentage * 2));
-      if (!lowerAnswer) itemScore = 0;
+      let itemScore = Math.min(100, Math.max(10, percentage));
+      if (!lowerAnswer || lowerAnswer === '(no response submitted within time limit)' || lowerAnswer === '(no response submitted)') {
+        itemScore = 0;
+      }
 
       let feedback = "";
       if (itemScore >= 80) {
@@ -201,7 +203,7 @@ export const submitInterview = async (req, res) => {
       } else if (itemScore >= 50) {
         const missed = q.keywords.filter(kw => !lowerAnswer.includes(kw.toLowerCase()));
         feedback = `Good attempt. To strengthen your answer, elaborate further on: ${missed.slice(0, 3).join(', ')}.`;
-      } else if (itemScore > 0) {
+      } else if (itemScore >= 10) {
         feedback = `Basic answer provided. Make sure to explain system trade-offs and keyword concepts like: ${q.keywords.slice(0, 4).join(', ')}.`;
       } else {
         feedback = "No answer was recorded for this question.";

@@ -49,14 +49,14 @@ const analyzeTexts = (resumeText, jobDescription) => {
   const missingKeywords = jdKeywords.filter(word => !resumeWords.has(word));
   
   const rawScore = Math.round((matchedKeywords.length / jdKeywords.length) * 100);
-  const score = Math.min(100, Math.max(15, rawScore * 2)); // normalized for realistic ATS scoring
+  const score = Math.min(100, Math.max(10, rawScore));
 
   // Category-based scoring
   const getCategoryScore = (categoryList) => {
     const jdCatKeywords = jdKeywords.filter(w => categoryList.includes(w));
-    if (jdCatKeywords.length === 0) return 70; // neutral default if not specifically requested
+    if (jdCatKeywords.length === 0) return 10;
     const matchedCat = jdCatKeywords.filter(w => resumeWords.has(w));
-    return Math.min(100, Math.round((matchedCat.length / jdCatKeywords.length) * 100));
+    return Math.min(100, Math.max(10, Math.round((matchedCat.length / jdCatKeywords.length) * 100)));
   };
 
   const categoryScores = {
