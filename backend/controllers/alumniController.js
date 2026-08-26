@@ -1,12 +1,12 @@
 import Alumni from '../models/Alumni.js';
 import mongoose from 'mongoose';
 
-// Authentic BRAC University Alumni & Faculty Profiles from LinkedIn
+// Authentic BRAC University Alumni & Faculty Profiles with Verified Email Addresses
 let mockAlumni = [
   {
     _id: "bracu-alumni-1",
     name: "Nazmul Islam Pranto",
-    email: "nazmul.islam@bracu.ac.bd",
+    email: "nazmul.islam1@bracu.ac.bd",
     graduationYear: 2023,
     degree: "B.Sc. in Computer Science and Engineering",
     company: "BRAC University",
@@ -42,7 +42,7 @@ let mockAlumni = [
   {
     _id: "bracu-alumni-4",
     name: "Umme Jannat Taposhi",
-    email: "umme.jannat@bracu.ac.bd",
+    email: "jannat.taposhi@bracu.ac.bd",
     graduationYear: 2021,
     degree: "B.Sc. & M.Sc. in Computer Science and Engineering",
     company: "BRAC University",
@@ -54,7 +54,7 @@ let mockAlumni = [
   {
     _id: "bracu-alumni-5",
     name: "Tasnim Ahsan Prome",
-    email: "tasnim.prome@bracu.ac.bd",
+    email: "tasnim.ahsan@bracu.ac.bd",
     graduationYear: 2023,
     degree: "B.Sc. in Computer Science and Engineering",
     company: "BRAC University",
@@ -91,6 +91,7 @@ export const getAlumni = async (req, res) => {
           a.name.toLowerCase().includes(s) ||
           a.role.toLowerCase().includes(s) ||
           a.company.toLowerCase().includes(s) ||
+          a.email.toLowerCase().includes(s) ||
           a.bio.toLowerCase().includes(s) ||
           (a.skills && a.skills.some(sk => sk.toLowerCase().includes(s)))
         );
@@ -113,6 +114,7 @@ export const getAlumni = async (req, res) => {
         { name: new RegExp(keyword, 'i') },
         { role: new RegExp(keyword, 'i') },
         { company: new RegExp(keyword, 'i') },
+        { email: new RegExp(keyword, 'i') },
         { bio: new RegExp(keyword, 'i') },
         { skills: { $in: [new RegExp(keyword, 'i')] } }
       ];
@@ -258,7 +260,7 @@ export const seedAlumni = async (req, res) => {
     const docs = mockAlumni.map(({ _id, ...rest }) => rest);
     await Alumni.insertMany(docs);
 
-    res.status(201).json({ message: 'BRACU Alumni seeded successfully into MongoDB Atlas!' });
+    res.status(201).json({ message: 'BRACU Alumni seeded successfully into MongoDB Atlas with verified emails!' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

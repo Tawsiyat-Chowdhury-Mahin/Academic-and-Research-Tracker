@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Search, GraduationCap, Briefcase, Mail, Plus, Send, RefreshCw, Sparkles, Check, X } from 'lucide-react';
+import { Search, GraduationCap, Briefcase, Mail, Plus, Send, RefreshCw, Sparkles, Check, X, Copy, ExternalLink } from 'lucide-react';
 
 const AlumniNetworking = () => {
   const [alumni, setAlumni] = useState([]);
   const [search, setSearch] = useState({ keyword: '', company: '', graduationYear: '', degree: 'All' });
   const [showAddForm, setShowAddForm] = useState(false);
+  const [copiedEmailId, setCopiedEmailId] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     graduationYear: '',
@@ -374,8 +375,38 @@ const AlumniNetworking = () => {
                       <GraduationCap size={15} /> <span>{alumnus.degree}</span>
                     </div>
 
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem', fontWeight: 500, color: 'var(--text-primary)', marginBottom: '10px' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.9rem', fontWeight: 500, color: 'var(--text-primary)', marginBottom: '8px' }}>
                       <Briefcase size={15} /> <span>{alumnus.role} at <span style={{ color: 'var(--color-primary)' }}>{alumnus.company}</span></span>
+                    </div>
+
+                    <div style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'space-between', 
+                      backgroundColor: 'var(--bg-primary)', 
+                      padding: '6px 10px', 
+                      borderRadius: '6px', 
+                      border: '1px solid var(--border-color)',
+                      marginBottom: '12px',
+                      fontSize: '0.82rem'
+                    }}>
+                      <a href={`mailto:${alumnus.email}`} style={{ color: 'var(--color-primary)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 600 }}>
+                        <Mail size={14} /> {alumnus.email}
+                      </a>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          navigator.clipboard.writeText(alumnus.email);
+                          setCopiedEmailId(alumnus._id);
+                          setTimeout(() => setCopiedEmailId(null), 2000);
+                        }}
+                        className="btn btn-secondary btn-sm"
+                        style={{ padding: '2px 6px', fontSize: '0.72rem', display: 'inline-flex', alignItems: 'center', gap: '3px' }}
+                        title="Copy email address"
+                      >
+                        {copiedEmailId === alumnus._id ? <Check size={12} style={{ color: 'var(--color-success)' }} /> : <Copy size={12} />}
+                        {copiedEmailId === alumnus._id ? 'Copied' : 'Copy'}
+                      </button>
                     </div>
 
                     <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', fontStyle: 'italic', marginBottom: '12px' }}>
@@ -393,24 +424,24 @@ const AlumniNetworking = () => {
 
                     {/* Contact & Mentorship Button details */}
                     <div style={{ display: 'flex', gap: '8px', borderTop: '1px solid var(--border-color)', paddingTop: '12px', flexWrap: 'wrap' }}>
-                      <a href={`mailto:${alumnus.email}`} className="btn btn-secondary btn-sm" style={{ flex: '1 1 30%', display: 'inline-flex', gap: '4px' }}>
-                        <Mail size={13} /> Email
+                      <a href={`mailto:${alumnus.email}`} className="btn btn-secondary btn-sm" style={{ flex: '1 1 30%', display: 'inline-flex', gap: '4px', alignItems: 'center', justifyContent: 'center' }}>
+                        <Mail size={13} /> Send Email
                       </a>
                       {alumnus.linkedin && (
-                        <a href={alumnus.linkedin} target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-sm" style={{ flex: '1 1 30%', display: 'inline-flex', gap: '4px' }}>
+                        <a href={alumnus.linkedin} target="_blank" rel="noopener noreferrer" className="btn btn-secondary btn-sm" style={{ flex: '1 1 30%', display: 'inline-flex', gap: '4px', alignItems: 'center', justifyContent: 'center' }}>
                           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0077b5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg> LinkedIn
                         </a>
                       )}
                       
                       {sentRequests.includes(alumnus._id) ? (
-                        <span className="btn btn-success btn-sm" style={{ flex: '1 1 100%', cursor: 'default', backgroundColor: 'var(--color-success-light)', color: 'var(--color-success)', borderColor: 'transparent', display: 'inline-flex', gap: '4px' }}>
+                        <span className="btn btn-success btn-sm" style={{ flex: '1 1 100%', cursor: 'default', backgroundColor: 'var(--color-success-light)', color: 'var(--color-success)', borderColor: 'transparent', display: 'inline-flex', gap: '4px', alignItems: 'center', justifyContent: 'center' }}>
                           <Check size={14} /> Request Sent
                         </span>
                       ) : (
                         <button 
                           onClick={() => setActiveAlumnus(alumnus)} 
                           className="btn btn-primary btn-sm" 
-                          style={{ flex: '1 1 100%', display: 'inline-flex', gap: '4px' }}
+                          style={{ flex: '1 1 100%', display: 'inline-flex', gap: '4px', alignItems: 'center', justifyContent: 'center' }}
                         >
                           <Sparkles size={13} /> Request Mentorship
                         </button>
