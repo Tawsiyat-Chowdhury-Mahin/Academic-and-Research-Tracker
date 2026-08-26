@@ -1,5 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Trash2, Edit2, FileText, Download, Save, Layout, Globe, Mail, Phone, MapPin } from 'lucide-react';
+import { Plus, Trash2, Edit2, FileText, Download, Save, Layout, Globe, Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+
+// URL Sanitizer helper to guarantee all links open externally
+const ensureValidUrl = (url, type = 'general') => {
+  if (!url || typeof url !== 'string' || !url.trim()) return '';
+  let str = url.trim();
+  if (type === 'github') {
+    if (!str.includes('github.com')) {
+      str = `https://github.com/${str.replace(/^@/, '')}`;
+    } else if (!/^https?:\/\//i.test(str)) {
+      str = `https://${str}`;
+    }
+  } else if (type === 'linkedin') {
+    if (!str.includes('linkedin.com')) {
+      str = `https://linkedin.com/in/${str.replace(/^@/, '')}`;
+    } else if (!/^https?:\/\//i.test(str)) {
+      str = `https://${str}`;
+    }
+  } else if (!/^https?:\/\//i.test(str)) {
+    str = `https://${str}`;
+  }
+  return str;
+};
 
 const ResumeBuilder = () => {
   const [resumes, setResumes] = useState([]);
@@ -75,6 +97,8 @@ const ResumeBuilder = () => {
 
     const formattedData = {
       ...formData,
+      linkedin: ensureValidUrl(formData.linkedin, 'linkedin'),
+      github: ensureValidUrl(formData.github, 'github'),
       skills: typeof formData.skills === 'string' ? formData.skills.split(',').map(s => s.trim()).filter(s => s.length > 0) : formData.skills
     };
 
@@ -218,16 +242,16 @@ const ResumeBuilder = () => {
               <div className="form-group">
                 <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0077b5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                  LinkedIn Profile URL
+                  LinkedIn Profile URL or Username
                 </label>
-                <input type="url" name="linkedin" value={formData.linkedin} onChange={handleChange} className="form-input" placeholder="https://linkedin.com/in/username" />
+                <input type="text" name="linkedin" value={formData.linkedin} onChange={handleChange} className="form-input" placeholder="e.g. linkedin.com/in/username or username" />
               </div>
               <div className="form-group">
                 <label className="form-label" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                  GitHub Profile URL
+                  GitHub Profile URL or Username
                 </label>
-                <input type="url" name="github" value={formData.github} onChange={handleChange} className="form-input" placeholder="https://github.com/username" />
+                <input type="text" name="github" value={formData.github} onChange={handleChange} className="form-input" placeholder="e.g. github.com/username or username" />
               </div>
             </div>
 
@@ -418,18 +442,30 @@ const ResumeBuilder = () => {
                           {previewResume.email} • {previewResume.phone} {previewResume.location ? `• ${previewResume.location}` : ''}
                         </p>
                         {(previewResume.linkedin || previewResume.github) && (
-                          <p style={{ margin: '4px 0 0 0', fontSize: '0.85rem', color: 'var(--color-primary)' }}>
+                          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '16px', marginTop: '6px', fontSize: '0.85rem' }}>
                             {previewResume.linkedin && (
-                              <a href={previewResume.linkedin} target="_blank" rel="noopener noreferrer" style={{ color: '#0077b5', textDecoration: 'none', marginRight: '12px' }}>
-                                🔗 LinkedIn: {previewResume.linkedin.replace(/^https?:\/\/(www\.)?linkedin\.com\/in\//, '')}
+                              <a 
+                                href={ensureValidUrl(previewResume.linkedin, 'linkedin')} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                style={{ color: '#0077b5', textDecoration: 'underline', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                              >
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0077b5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                                LinkedIn
                               </a>
                             )}
                             {previewResume.github && (
-                              <a href={previewResume.github} target="_blank" rel="noopener noreferrer" style={{ color: '#333', textDecoration: 'none' }}>
-                                💻 GitHub: {previewResume.github.replace(/^https?:\/\/(www\.)?github\.com\//, '')}
+                              <a 
+                                href={ensureValidUrl(previewResume.github, 'github')} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                style={{ color: '#24292e', textDecoration: 'underline', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                              >
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                                GitHub
                               </a>
                             )}
-                          </p>
+                          </div>
                         )}
                       </div>
                       <button onClick={printResume} className="btn btn-secondary btn-sm no-print" style={{ position: 'absolute', right: '0px', top: '0px' }}>
@@ -488,28 +524,42 @@ const ResumeBuilder = () => {
                     <div style={{ width: '32%', borderRight: '1px solid #ddd', paddingRight: '15px' }}>
                       <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--color-primary)', marginBottom: '6px' }}>{previewResume.fullName}</h2>
                       
-                      <div style={{ fontSize: '0.82rem', color: '#666', display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '16px' }}>
+                      <div style={{ fontSize: '0.82rem', color: '#666', display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                          <Mail size={13} style={{ color: 'var(--color-primary)' }} /> <span>{previewResume.email}</span>
+                          <Mail size={13} style={{ color: 'var(--color-primary)', flexShrink: 0 }} /> <span>{previewResume.email}</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                          <Phone size={13} style={{ color: 'var(--color-primary)' }} /> <span>{previewResume.phone}</span>
+                          <Phone size={13} style={{ color: 'var(--color-primary)', flexShrink: 0 }} /> <span>{previewResume.phone}</span>
                         </div>
                         {previewResume.location && (
                           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                            <MapPin size={13} style={{ color: 'var(--color-primary)' }} /> <span>{previewResume.location}</span>
+                            <MapPin size={13} style={{ color: 'var(--color-primary)', flexShrink: 0 }} /> <span>{previewResume.location}</span>
                           </div>
                         )}
                         {previewResume.linkedin && (
                           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0077b5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-                            <a href={previewResume.linkedin} target="_blank" rel="noopener noreferrer" style={{ color: '#0077b5', textDecoration: 'none', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>LinkedIn</a>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0077b5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                            <a 
+                              href={ensureValidUrl(previewResume.linkedin, 'linkedin')} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              style={{ color: '#0077b5', textDecoration: 'underline', fontWeight: 600 }}
+                            >
+                              LinkedIn Profile
+                            </a>
                           </div>
                         )}
                         {previewResume.github && (
                           <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#333" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-                            <a href={previewResume.github} target="_blank" rel="noopener noreferrer" style={{ color: '#333', textDecoration: 'none', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>GitHub</a>
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#24292e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+                            <a 
+                              href={ensureValidUrl(previewResume.github, 'github')} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              style={{ color: '#24292e', textDecoration: 'underline', fontWeight: 600 }}
+                            >
+                              GitHub Profile
+                            </a>
                           </div>
                         )}
                       </div>
