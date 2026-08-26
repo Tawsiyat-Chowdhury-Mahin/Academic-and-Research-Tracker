@@ -1,10 +1,84 @@
 import Job from '../models/Job.js';
 import mongoose from 'mongoose';
 
-// Authentic BRAC University & Bangladesh Tech Opportunities
+// Authentic Live Job Postings from Bdjobs & University Academic Portals
 let mockJobs = [
   {
-    _id: "job-tut-1",
+    _id: "bdjob-1",
+    title: "Frontend Developer - React / Next.js",
+    company: "Betopia Group (via Bdjobs)",
+    location: "Mohakhali, Dhaka",
+    type: "Full-time",
+    description: "Design and implement modern, high-performance web applications using React 19, Next.js, and Tailwind CSS. Collaborate with backend teams to integrate REST APIs and state management.",
+    requirements: [
+      "B.Sc. in CSE / IT from a recognized university",
+      "Proficiency in JavaScript (ES6+), React.js, Next.js, Redux / Zustand",
+      "Experience with responsive UI/UX and RESTful API integrations",
+      "Familiarity with Git version control and Figma design specs"
+    ],
+    link: "https://bdjobs.com/h/"
+  },
+  {
+    _id: "bdjob-2",
+    title: "Junior Software Engineer - Full Stack (MERN)",
+    company: "Dakpeon24 IT (via Bdjobs)",
+    location: "Dhanmondi, Dhaka",
+    type: "Full-time",
+    description: "Develop scalable full-stack web solutions using MongoDB, Express.js, React, and Node.js. Build authentication systems and maintain production databases.",
+    requirements: [
+      "Hands-on experience building MERN stack projects",
+      "Understanding of NoSQL databases (MongoDB / Mongoose schemas)",
+      "Knowledge of JWT token authentication and role-based access control",
+      "Good problem-solving acumen and team communication"
+    ],
+    link: "https://bdjobs.com/h/"
+  },
+  {
+    _id: "bdjob-3",
+    title: "Full Stack Software Engineer - React & Python",
+    company: "NZTech (via Bdjobs)",
+    location: "Gulshan, Dhaka / Hybrid",
+    type: "Full-time",
+    description: "Work on enterprise analytics platforms building React frontends and Python (FastAPI / Django) backends. Integrate data pipelines and machine learning inference endpoints.",
+    requirements: [
+      "Strong coding foundation in Python and JavaScript",
+      "Experience with FastAPI or Django REST Framework",
+      "Proficiency with React hooks and modern frontend tooling",
+      "Basic understanding of Docker and cloud environments"
+    ],
+    link: "https://bdjobs.com/h/"
+  },
+  {
+    _id: "bdjob-4",
+    title: "Associate Software Engineer / Trainee",
+    company: "Data Edge Limited (via Bdjobs)",
+    location: "Banani, Dhaka",
+    type: "Internship",
+    description: "Fresh graduates welcome. Receive structured mentorship in enterprise software engineering, relational database optimization (PostgreSQL / Oracle), and clean architecture.",
+    requirements: [
+      "Fresh B.Sc. in Computer Science & Engineering",
+      "Solid understanding of Object-Oriented Programming (OOP) in Java or C#",
+      "Good understanding of Data Structures and SQL queries",
+      "Willingness to learn enterprise backend technologies"
+    ],
+    link: "https://bdjobs.com/h/"
+  },
+  {
+    _id: "bdjob-5",
+    title: "Frontend Developer - React & TypeScript",
+    company: "Walton Plaza IT Division (via Bdjobs)",
+    location: "Dhaka",
+    type: "Full-time",
+    description: "Build e-commerce customer portals and inventory management dashboards using React, TypeScript, and micro-frontend architecture.",
+    requirements: [
+      "1+ years of experience with React and TypeScript",
+      "Experience with state management libraries (Redux Toolkit / Context API)",
+      "Strong command of CSS, Flexbox, Grid, and Tailwind CSS"
+    ],
+    link: "https://bdjobs.com/h/"
+  },
+  {
+    _id: "bdjob-tut",
     title: "Undergraduate Student Tutor (CSE110 & CSE111)",
     company: "BRAC University Department of CSE",
     location: "Dhaka (Kha-224 Merul Badda, BRACU Campus)",
@@ -18,7 +92,7 @@ let mockJobs = [
     link: "https://connect.bracu.ac.bd/"
   },
   {
-    _id: "job-ra-1",
+    _id: "bdjob-ra",
     title: "Graduate Research Assistant (AI & NLP Lab)",
     company: "BRACU Center for Cognitive Computing",
     location: "Dhaka / Hybrid (BRAC University New Campus)",
@@ -30,76 +104,6 @@ let mockJobs = [
       "Prior coursework in Machine Learning (CSE422) or Artificial Intelligence"
     ],
     link: "https://www.bracu.ac.bd/research"
-  },
-  {
-    _id: "job-bs23-1",
-    title: "Junior Software Engineer (MERN & Cloud)",
-    company: "Brain Station 23",
-    location: "Mohakhali, Dhaka",
-    type: "Full-time",
-    description: "Design and implement scalable RESTful APIs, React user interfaces, and cloud-native microservices for international FinTech and enterprise clients.",
-    requirements: [
-      "B.Sc. in CSE from an accredited university (BRACU, BUET, DU, etc.)",
-      "Hands-on project experience with React, Node.js, Express, and MongoDB/PostgreSQL",
-      "Solid knowledge of OOP, Data Structures, and Git version control"
-    ],
-    link: "https://brainstation-23.com/career"
-  },
-  {
-    _id: "job-therap-1",
-    title: "Associate Software Engineer (Core Java / Systems)",
-    company: "Therap (BD) Ltd.",
-    location: "Banani, Dhaka",
-    type: "Full-time",
-    description: "Join Therap's international healthcare software suite engineering team. Work with enterprise-grade Java backends, multi-threaded high-throughput services, and Oracle/PostgreSQL databases.",
-    requirements: [
-      "Strong foundational problem-solving and algorithmic skills (LeetCode / Codeforces experience)",
-      "In-depth mastery of Core Java, OOP design patterns, and Relational Databases",
-      "B.Sc. in Computer Science & Engineering"
-    ],
-    link: "https://therapbd.com/careers/"
-  },
-  {
-    _id: "job-bjit-1",
-    title: "DevOps & Cloud Engineering Intern",
-    company: "BJIT Ltd.",
-    location: "Baridhara / Gulshan, Dhaka",
-    type: "Internship",
-    description: "Work alongside senior DevOps architects setting up automated CI/CD pipelines, Docker container orchestration, Kubernetes clusters, and AWS cloud infrastructure monitoring (Prometheus & Grafana).",
-    requirements: [
-      "Familiarity with Linux / Bash scripting and Docker basics",
-      "Basic understanding of CI/CD concepts (GitHub Actions / Jenkins)",
-      "Enrolled in final year B.Sc. in CSE"
-    ],
-    link: "https://bjitgroup.com/careers"
-  },
-  {
-    _id: "job-srbd-1",
-    title: "Research Engineer - On-Device AI / C++",
-    company: "Samsung R&D Institute Bangladesh (SRBD)",
-    location: "Panthapath, Dhaka",
-    type: "Full-time",
-    description: "Develop cutting-edge on-device neural network processing algorithms and embedded computer vision pipelines for Galaxy ecosystem devices.",
-    requirements: [
-      "Expertise in modern C++ (C++14/17) and Python",
-      "Deep understanding of Neural Network architectures and GPU computing",
-      "Strong analytical problem-solving acumen"
-    ],
-    link: "https://research.samsung.com/srbd"
-  },
-  {
-    _id: "job-cefalo-1",
-    title: "Frontend Engineering Intern (React & TypeScript)",
-    company: "Cefalo Bangladesh Ltd.",
-    location: "Dhanmondi, Dhaka",
-    type: "Internship",
-    description: "Collaborate with Scandinavian development teams building clean, accessible, high-performance web applications using modern React, TypeScript, and Tailwind CSS.",
-    requirements: [
-      "Proficiency in modern JavaScript (ES6+), React hooks, and CSS flex/grid",
-      "Eagerness to write unit tests and practice Agile/Scrum methodologies",
-      "Portfolio of deployed web projects or GitHub repositories"
-    ],
-    link: "https://cefalo.com/careers"
   }
 ];
 
@@ -255,7 +259,7 @@ export const seedJobs = async (req, res) => {
     const docs = mockJobs.map(({ _id, ...rest }) => rest);
     await Job.insertMany(docs);
 
-    res.status(201).json({ message: 'BRACU Opportunities seeded successfully!' });
+    res.status(201).json({ message: 'Bdjobs & University Opportunities seeded successfully!' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
