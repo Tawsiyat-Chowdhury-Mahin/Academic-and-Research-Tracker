@@ -390,7 +390,7 @@ const AuthPage = () => {
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="form-input"
                     style={{ paddingLeft: '42px' }}
-                    placeholder="e.g. Tawsiyat Chowdhury Mahin"
+                    placeholder="Enter your full name"
                   />
                 </div>
               </div>
@@ -408,7 +408,7 @@ const AuthPage = () => {
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="form-input"
                   style={{ paddingLeft: '42px' }}
-                  placeholder="student@g.bracu.ac.bd"
+                  placeholder="Enter university email"
                 />
               </div>
             </div>
@@ -458,7 +458,7 @@ const AuthPage = () => {
                         onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
                         className="form-input"
                         style={{ paddingLeft: '36px' }}
-                        placeholder="e.g. 22101456"
+                        placeholder="Student ID (8 digits)"
                       />
                     </div>
                   </div>
