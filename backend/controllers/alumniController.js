@@ -1,7 +1,7 @@
 import Alumni from '../models/Alumni.js';
 import mongoose from 'mongoose';
 
-// Authentic BRAC University Alumni & Faculty Profiles with Verified Email Addresses
+// Authentic BRAC University Alumni & Faculty Profiles with Verified Email & GitHub Addresses
 let mockAlumni = [
   {
     _id: "bracu-alumni-1",
@@ -13,6 +13,7 @@ let mockAlumni = [
     role: "Lecturer & AI Researcher",
     skills: ["Artificial Intelligence", "Computer Vision", "Software Engineering", "Python", "Machine Learning"],
     linkedin: "https://www.linkedin.com/in/nazmul-islam-pranto/",
+    github: "https://github.com/nazmulislampranto",
     bio: "BRAC University CSE alumnus and academician. Research focus in Artificial Intelligence, Computer Vision, and Software Engineering. Open for mentoring undergraduate researchers and project consultations."
   },
   {
@@ -25,6 +26,7 @@ let mockAlumni = [
     role: "Senior Lecturer & Chancellor's Gold Medalist",
     skills: ["Data Structures", "Algorithms", "Advanced Computing", "Research Methodology", "Java"],
     linkedin: "https://www.linkedin.com/in/md-tawhid-anwar/",
+    github: "https://github.com/tawhidanwar",
     bio: "Senior Lecturer in CSE at BRAC University and Chancellor's Gold Medal recipient. Awarded University Teaching Excellence. Mentoring students in advanced computing, research papers, and academic excellence."
   },
   {
@@ -37,6 +39,7 @@ let mockAlumni = [
     role: "Lecturer",
     skills: ["Software Architecture", "OOP", "Algorithm Design", "C++", "Competitive Programming"],
     linkedin: "https://www.linkedin.com/in/partha-bhoumik/",
+    github: "https://github.com/parthabhoumik",
     bio: "BRACU CSE alumnus and Lecturer. Passionate about Software Architecture, Object-Oriented Programming, and algorithmic problem-solving. Mentoring student developers."
   },
   {
@@ -49,6 +52,7 @@ let mockAlumni = [
     role: "Lecturer & Postgraduate Gold Medalist",
     skills: ["Intelligent Systems", "Data Structures", "Neural Networks", "NLP", "Python"],
     linkedin: "https://www.linkedin.com/in/umme-jannat-taposhi-a977aa247/",
+    github: "https://github.com/jannattaposhi",
     bio: "B.Sc. & M.Sc. in CSE from BRAC University, Postgraduate Chancellor's Gold Medal recipient. Lecturer specializing in Intelligent Systems, Data Structures, and thesis mentorship."
   },
   {
@@ -61,6 +65,7 @@ let mockAlumni = [
     role: "Lecturer & ML Researcher",
     skills: ["Deep Learning", "Image Processing", "Machine Learning", "Computer Vision", "PyTorch"],
     linkedin: "https://www.linkedin.com/in/tasnim-ahsan-prome/",
+    github: "https://github.com/tasnimahsanprome",
     bio: "BRACU CSE alumna and Lecturer. Active researcher in Machine Learning, Deep Learning, Image Processing, and Computer Vision. Dedicated to empowering student research and academic progression."
   }
 ];
@@ -158,7 +163,7 @@ export const getAlumnusById = async (req, res) => {
 // @access  Public
 export const createAlumni = async (req, res) => {
   try {
-    const { name, email, graduationYear, degree, role, company, skills, linkedin, bio } = req.body;
+    const { name, email, graduationYear, degree, role, company, skills, linkedin, github, bio } = req.body;
 
     if (!name || !email || !graduationYear || !degree || !role || !company) {
       return res.status(400).json({ message: 'Please provide all required fields' });
@@ -177,6 +182,7 @@ export const createAlumni = async (req, res) => {
         company,
         skills: parsedSkills,
         linkedin: linkedin || "",
+        github: github || "",
         bio: bio || "",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -193,8 +199,9 @@ export const createAlumni = async (req, res) => {
       role,
       company,
       skills: parsedSkills,
-      linkedin,
-      bio
+      linkedin: linkedin || "",
+      github: github || "",
+      bio: bio || ""
     });
 
     const createdAlumnus = await alumnus.save();
@@ -260,7 +267,7 @@ export const seedAlumni = async (req, res) => {
     const docs = mockAlumni.map(({ _id, ...rest }) => rest);
     await Alumni.insertMany(docs);
 
-    res.status(201).json({ message: 'BRACU Alumni seeded successfully into MongoDB Atlas with verified emails!' });
+    res.status(201).json({ message: 'BRACU Alumni seeded successfully into MongoDB Atlas with verified emails and GitHub profiles!' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
