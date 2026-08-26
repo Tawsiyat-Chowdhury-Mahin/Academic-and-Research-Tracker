@@ -15,8 +15,23 @@ import {
   Award,
   ArrowRight,
   BookOpen,
-  Briefcase
+  Briefcase,
+  Hash
 } from 'lucide-react';
+
+const BRACU_DEPARTMENTS = [
+  { code: 'CSE', id: '01', name: 'Computer Science & Engineering (CSE - 01)' },
+  { code: 'CS', id: '01', name: 'Computer Science (CS - 01)' },
+  { code: 'EEE', id: '02', name: 'Electrical & Electronic Engineering (EEE - 02)' },
+  { code: 'ECE', id: '03', name: 'Electronic & Communication Engineering (ECE - 03)' },
+  { code: 'MNS', id: '04', name: 'Mathematics & Natural Sciences / Biotech (MNS - 04)' },
+  { code: 'BBS', id: '05', name: 'BRAC Business School (BBS - 05)' },
+  { code: 'ESS', id: '06', name: 'Economics & Social Sciences (ESS - 06)' },
+  { code: 'ENH', id: '07', name: 'English & Humanities (ENH - 07)' },
+  { code: 'ARC', id: '08', name: 'Department of Architecture (ARC - 08)' },
+  { code: 'PHR', id: '09', name: 'School of Pharmacy (PHR - 09)' },
+  { code: 'SOL', id: '10', name: 'School of Law (SOL - 10)' }
+];
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -25,7 +40,7 @@ const AuthPage = () => {
     email: '',
     password: '',
     role: 'student',
-    department: 'Computer Science & Engineering',
+    department: 'Computer Science & Engineering (CSE - 01)',
     studentId: '',
     bio: ''
   });
@@ -43,7 +58,7 @@ const AuthPage = () => {
         email: '',
         password: '',
         role: 'student',
-        department: 'Computer Science & Engineering',
+        department: 'Computer Science & Engineering (CSE - 01)',
         studentId: '',
         bio: ''
       });
@@ -57,7 +72,7 @@ const AuthPage = () => {
       email: '',
       password: '',
       role: 'student',
-      department: 'Computer Science & Engineering',
+      department: 'Computer Science & Engineering (CSE - 01)',
       studentId: '',
       bio: ''
     });
@@ -81,7 +96,7 @@ const AuthPage = () => {
       const res = await register(formData);
       if (res.success) {
         resetForm();
-        setLocalMessage('Account registered successfully! Entering portal...');
+        setLocalMessage('BRACU Account registered successfully! Entering portal...');
         setTimeout(() => {
           navigate('/');
         }, 600);
@@ -96,7 +111,7 @@ const AuthPage = () => {
     resetForm();
     const res = await quickDemoLogin(role);
     if (res.success) {
-      setLocalMessage(`Signed in as Demo ${role === 'student' ? 'Student' : 'Faculty'}! Entering portal...`);
+      setLocalMessage(`Signed in as Demo ${role === 'student' ? 'BRACU Student' : 'Faculty'}! Entering portal...`);
       setTimeout(() => {
         navigate('/');
       }, 600);
@@ -134,19 +149,19 @@ const AuthPage = () => {
               <GraduationCap size={14} /> {user.role}
             </span>
             <span className="badge" style={{ backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-secondary)', padding: '6px 14px', fontSize: '0.8rem' }}>
-              {user.department || 'CSE Dept'}
+              {user.department || 'CSE Dept (01)'}
             </span>
           </div>
 
           <div style={{ backgroundColor: 'var(--bg-primary)', padding: '24px', borderRadius: 'var(--radius-md)', textAlign: 'left', marginBottom: '28px', border: '1px solid var(--border-color)' }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '12px' }}>
               <div>
-                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>DEPARTMENT</p>
-                <p style={{ fontSize: '0.95rem', fontWeight: 600 }}>{user.department || 'Computer Science'}</p>
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>DEPARTMENT / ID</p>
+                <p style={{ fontSize: '0.95rem', fontWeight: 600 }}>{user.department || 'Computer Science & Engineering (01)'}</p>
               </div>
               <div>
-                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>STUDENT / ID</p>
-                <p style={{ fontSize: '0.95rem', fontWeight: 600 }}>{user.studentId || 'N/A'}</p>
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>BRACU STUDENT ID</p>
+                <p style={{ fontSize: '0.95rem', fontWeight: 600 }}>{user.studentId || '22101456'}</p>
               </div>
             </div>
             {user.bio && (
@@ -233,7 +248,7 @@ const AuthPage = () => {
             Academic & Research Tracker
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
-            Sign in to access your research, resumes, and career tools.
+            BRAC University Academic & Career Portal
           </p>
         </div>
 
@@ -375,7 +390,7 @@ const AuthPage = () => {
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="form-input"
                     style={{ paddingLeft: '42px' }}
-                    placeholder="e.g. Jane Doe"
+                    placeholder="e.g. Tawsiyat Chowdhury Mahin"
                   />
                 </div>
               </div>
@@ -393,7 +408,7 @@ const AuthPage = () => {
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="form-input"
                   style={{ paddingLeft: '42px' }}
-                  placeholder="student@university.edu"
+                  placeholder="student@g.bracu.ac.bd"
                 />
               </div>
             </div>
@@ -433,28 +448,35 @@ const AuthPage = () => {
                   </div>
 
                   <div className="form-group" style={{ marginBottom: 0 }}>
-                    <label className="form-label">Student ID</label>
-                    <input
-                      type="text"
-                      autoComplete="off"
-                      value={formData.studentId}
-                      onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
-                      className="form-input"
-                      placeholder="e.g. 2026-CSE-01"
-                    />
+                    <label className="form-label">BRACU Student ID</label>
+                    <div style={{ position: 'relative' }}>
+                      <Hash size={16} style={{ position: 'absolute', left: '12px', top: '14px', color: 'var(--text-muted)' }} />
+                      <input
+                        type="text"
+                        autoComplete="off"
+                        value={formData.studentId}
+                        onChange={(e) => setFormData({ ...formData, studentId: e.target.value })}
+                        className="form-input"
+                        style={{ paddingLeft: '36px' }}
+                        placeholder="e.g. 22101456"
+                      />
+                    </div>
                   </div>
                 </div>
 
                 <div className="form-group" style={{ marginBottom: 0 }}>
-                  <label className="form-label">Department</label>
-                  <input
-                    type="text"
-                    autoComplete="off"
+                  <label className="form-label">Department & Code</label>
+                  <select
                     value={formData.department}
                     onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                    className="form-input"
-                    placeholder="e.g. Computer Science & Engineering"
-                  />
+                    className="form-select"
+                  >
+                    {BRACU_DEPARTMENTS.map(dept => (
+                      <option key={dept.code} value={dept.name}>
+                        {dept.name}
+                      </option>
+                    ))}
+                  </select>
                 </div>
               </>
             )}
@@ -472,7 +494,7 @@ const AuthPage = () => {
 
         {/* Footer Note */}
         <div style={{ textAlign: 'center', marginTop: '18px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-          Academic & Research Tracker • CSE Project © 2026
+          BRAC University Academic & Research Tracker • 2026
         </div>
       </div>
     </div>
