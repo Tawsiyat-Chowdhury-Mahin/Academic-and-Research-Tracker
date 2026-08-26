@@ -315,15 +315,15 @@ const NavigationSidebar = () => {
       borderRight: '1px solid var(--border-color)',
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'space-between',
-      padding: '24px 20px',
+      padding: '20px 16px',
       position: 'sticky',
       top: 0,
       height: '100vh',
       flexShrink: 0,
-      boxShadow: 'var(--shadow-xs)'
-    }} className="app-sidebar">
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+      boxShadow: 'var(--shadow-xs)',
+      overflowY: 'auto'
+    }} className="app-sidebar custom-scrollbar">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
         {/* Logo area */}
         <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '12px', textDecoration: 'none', color: 'inherit', padding: '0 6px' }}>
           <div style={{ 
@@ -335,7 +335,8 @@ const NavigationSidebar = () => {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            boxShadow: '0 2px 8px rgba(37, 99, 235, 0.25)'
+            boxShadow: '0 2px 8px rgba(37, 99, 235, 0.25)',
+            flexShrink: 0
           }}>
             <GraduationCap size={22} />
           </div>
@@ -348,7 +349,7 @@ const NavigationSidebar = () => {
         {/* User Mini Profile */}
         <div style={{ 
           backgroundColor: '#f8fafc', 
-          padding: '12px 14px', 
+          padding: '10px 12px', 
           borderRadius: 'var(--radius-md)', 
           border: '1px solid var(--border-color)',
           display: 'flex',
@@ -357,23 +358,23 @@ const NavigationSidebar = () => {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', overflow: 'hidden' }}>
             <div style={{ 
-              width: '34px', 
-              height: '34px', 
+              width: '32px', 
+              height: '32px', 
               borderRadius: '50%', 
               background: 'var(--color-primary-gradient)', 
               color: '#fff', 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center', 
-              fontSize: '0.9rem', 
+              fontSize: '0.85rem', 
               fontWeight: 700, 
               flexShrink: 0 
             }}>
               {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
             </div>
             <div style={{ overflow: 'hidden' }}>
-              <p style={{ fontSize: '0.88rem', fontWeight: 700, margin: 0, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{user?.name || 'User'}</p>
-              <p style={{ fontSize: '0.72rem', color: 'var(--text-muted)', margin: 0, textTransform: 'capitalize', fontWeight: 500 }}>{user?.role || 'Student'}</p>
+              <p style={{ fontSize: '0.84rem', fontWeight: 700, margin: 0, whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{user?.name || 'User'}</p>
+              <p style={{ fontSize: '0.7rem', color: 'var(--text-muted)', margin: 0, textTransform: 'capitalize', fontWeight: 500 }}>{user?.role || 'Student'}</p>
             </div>
           </div>
           <button 
@@ -391,100 +392,112 @@ const NavigationSidebar = () => {
               boxShadow: 'var(--shadow-xs)'
             }}
           >
-            <LogOut size={15} />
+            <LogOut size={14} />
           </button>
         </div>
 
         {/* Navigation links */}
-        <nav style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+        <nav style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+          <div style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', padding: '6px 12px 2px' }}>
+            Academic Hub
+          </div>
+
           <NavLink 
             to="/" 
             end
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
-            <Home size={18} /> Home Dashboard
+            <Home size={17} /> Home Dashboard
           </NavLink>
 
           <NavLink 
             to="/cgpa-calculator" 
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
-            <Calculator size={18} /> CGPA Calculator
+            <Calculator size={17} /> CGPA Calculator
           </NavLink>
 
           <NavLink 
             to="/course-planner" 
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
-            <BookMarked size={18} /> Course Planning
+            <BookMarked size={17} /> Course Planning
           </NavLink>
 
           <NavLink 
             to="/class-routine" 
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
-            <CalendarDays size={18} /> Class Schedule
+            <CalendarDays size={17} /> Class Schedule
           </NavLink>
 
           <NavLink 
             to="/study-planner" 
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
-            <Calendar size={18} /> Study Planner
+            <Calendar size={17} /> Study Planner
           </NavLink>
 
           <NavLink 
             to="/faculty-reviews" 
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
-            <Star size={18} /> Faculty Reviews
+            <Star size={17} /> Faculty Reviews
           </NavLink>
 
-          <NavLink 
-            to="/resume-builder" 
-            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-          >
-            <FileText size={18} /> Resume Builder
-          </NavLink>
+          <div style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', padding: '10px 12px 2px' }}>
+            Career & Networking
+          </div>
 
           <NavLink 
-            to="/cv-analyzer" 
+            to="/alumni-networking" 
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
-            <Cpu size={18} /> CV Match Analyzer
+            <Users size={17} /> Alumni Networking
           </NavLink>
 
           <NavLink 
             to="/job-finder" 
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
-            <Briefcase size={18} /> Job/Intern Finder
+            <Briefcase size={17} /> Job / Intern Finder
+          </NavLink>
+
+          <NavLink 
+            to="/resume-builder" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <FileText size={17} /> Resume Builder
+          </NavLink>
+
+          <NavLink 
+            to="/cv-analyzer" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <Cpu size={17} /> CV Match Analyzer
           </NavLink>
 
           <NavLink 
             to="/interview-simulator" 
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
-            <PlayCircle size={18} /> Interview Simulator
+            <PlayCircle size={17} /> Interview Simulator
           </NavLink>
 
-          <NavLink 
-            to="/alumni-networking" 
-            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-          >
-            <Users size={18} /> Alumni Networking
-          </NavLink>
+          <div style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', padding: '10px 12px 2px' }}>
+            Settings
+          </div>
 
           <NavLink 
             to="/profile" 
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
-            <User size={18} /> Account Profile
+            <User size={17} /> Account Profile
           </NavLink>
         </nav>
       </div>
 
-      <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '16px', fontSize: '0.8rem', color: 'var(--text-muted)', textAlign: 'center' }}>
+      <div style={{ marginTop: 'auto', borderTop: '1px solid var(--border-color)', paddingTop: '12px', fontSize: '0.75rem', color: 'var(--text-muted)', textAlign: 'center' }}>
         CSE Project © 2026
       </div>
     </aside>
