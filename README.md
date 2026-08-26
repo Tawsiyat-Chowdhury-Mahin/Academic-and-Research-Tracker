@@ -1,86 +1,120 @@
 # Academic and Research Tracker 🎓🔬
 
-> **A Modular Full-Stack MERN Application Built for University Collaboration**  
-> Powered by **MongoDB**, **Express.js**, **React (Vite)**, and **Node.js** following strict **Model-View-Controller (MVC)** design patterns.
+> **A Comprehensive Full-Stack MERN Platform for University Academic Management & Career Readiness**  
+> Built with **MongoDB Atlas**, **Express.js**, **React (Vite)**, and **Node.js** following clean **Model-View-Controller (MVC)** software architecture.
 
 ---
 
 ## 📌 Project Overview
 
-**Academic and Research Tracker** is a collaborative student and researcher hub. It provides a unified authentication foundation and modular feature hubs designed so multiple team members can contribute new modules without merge conflicts or architectural confusion.
-
-### 🌟 Features Included Out-of-the-Box:
-1. 🔐 **Common Authentication & User Profiles** (`/auth`)
-   - Full registration, login, and profile view (Student, Researcher, Faculty roles).
-   - Fast 1-click **Demo Login** for instant university testing/evaluation.
-   - Built-in secure password hashing.
-2. 📄 **Resume Builder** (`/resume-builder`)
-   - Dynamic template switcher (**Classic Academic** serif vs. **Modern Corporate** sidebar).
-   - Live PDF-ready print preview with formatted typography.
-3. 🧠 **CV Match Analyzer** (`/cv-analyzer`)
-   - Evaluates CV text against job descriptions.
-   - Categorized fit scores (*Programming Languages*, *Frameworks & Libraries*, *Tools & Databases*).
-4. 💼 **Job & Internship Finder** (`/job-finder`)
-   - Opportunity directory with keyword & location search.
-   - **Local Storage Bookmarking** tab to save openings across sessions.
-5. 🎙️ **Interview Simulator** (`/interview-simulator`)
-   - Real-time technical interview simulator.
-   - **Web Speech API (TTS)** question voice-over + **60-second question countdown timer**.
-   - Automated performance grading feedback cards.
-6. 🎓 **Alumni Networking** (`/alumni-networking`)
-   - Filterable university alumni directory.
-   - Interactive **1-on-1 Mentorship Request** modal dialog.
+**Academic and Research Tracker** is an all-in-one collaborative academic portal designed for university students, researchers, and faculty. It integrates course management, semester planning, and academic scheduling with cutting-edge career tools including ATS resume optimization, live tech job feeds, AI-driven interview simulation, and university alumni mentorship.
 
 ---
 
-## 🏗️ Architecture & Folder Structure
+## 🌟 Core Features & Modules
+
+### 🎓 Academic Hub
+1. **📊 CGPA Calculator (`/cgpa-calculator`)**
+   * Computes semester GPA and cumulative CGPA using the official **BRACU 4.0 grading scale**.
+   * Includes target CGPA projection and direct integration with online academic calculators.
+
+2. **🗺️ Course Planning & Roadmaps (`/course-planner`)**
+   * Advising assistant that maps completed courses, flags prerequisite chains, and balances credit workloads.
+
+3. **📅 Class Schedule & Academic Calendar (`/class-routine`)**
+   * Visual weekly slot routine manager combined with official **BRACU 2026 Academic Calendar** milestones, holidays, and exam dates.
+
+4. **⏱️ Study Planner (`/study-planner`)**
+   * Personalized daily study timeline and monthly exam milestone planner.
+
+5. **⭐ Faculty Reviews (`/faculty-reviews`)**
+   * Transparent faculty evaluations, course advising ratings, and student feedback using G-Suite single sign-on.
+
+---
+
+### 💼 Career & Networking Hub
+6. **👥 Alumni Networking & Mentorship (`/alumni-networking`)**
+   * Exclusive directory of authentic **BRAC University Alumni and Faculty** (e.g., Nazmul Islam Pranto, Md. Tawhid Anwar, Partha Bhoumik, Umme Jannat Taposhi, Tasnim Ahsan Prome).
+   * Direct LinkedIn profile links and interactive **1-on-1 Mentorship Request** modals.
+
+7. **💼 Job & Internship Finder (`/job-finder`)**
+   * Live software engineering jobs and student tutoring/internship openings scraped from **[Bdjobs.com](https://bdjobs.com/h/)** and university departments.
+   * Multi-filter search (location, keyword, role type) and persistent bookmarking.
+
+8. **📄 Resume Builder (`/resume-builder`)**
+   * Full-featured CV builder with dynamic template switching (**Classic Academic** serif vs. **Modern Corporate** sidebar) and one-click PDF printing.
+
+9. **🤖 CV Match Analyzer & ATS Optimizer (`/cv-analyzer`)**
+   * Cross-references CV text against job descriptions to calculate categorized fit percentages.
+   * **Actionable CV Improvement Suite**:
+     * ✍️ **Before vs. After Bullet Point Rewrites** (transforming passive statements into quantified action bullets).
+     * 🎯 **Keyword Placement Strategy Matrix** (recommends exact sections to insert missing keywords).
+     * 🛡️ **ATS Compliance Audit Checklist** (word count, action verb density, metrics presence).
+     * 📝 **Tailored Elevator Pitch Generator** with 1-click clipboard copy.
+
+10. **🎙️ Interactive Interview Simulator (`/interview-simulator`)**
+    * Voiceover question read-aloud via **Web Speech API (TTS)** and **60-second pressure countdown timer**.
+    * Automated keyword-based scoring rubrics and instant feedback.
+    * **5 Specialized Tracks**:
+      * 🏗️ **Software Engineering Models & Architecture** *(MVC, Clean Architecture, SOLID, Microservices, CAP Theorem)*
+      * 🗄️ **Database Systems & Data Modeling** *(Normalization 1NF-BCNF, Indexing, ACID vs. BASE, Sharding)*
+      * ⚙️ **Backend & Distributed Systems** *(Node, Express, JWT, Microservices)*
+      * 💻 **Frontend Web Development** *(React 19, Virtual DOM, Redux Toolkit)*
+      * 👨‍🏫 **Undergraduate Student Tutor & TA** *(OOP, Recursion, Pointer Debugging)*
+
+---
+
+### 🔐 Authentication & User Accounts
+11. **User Profile & Authentication (`/profile` / `/auth`)**
+    * Role-based access control (**Student**, **Researcher**, **Faculty / Advisor**).
+    * Customized for BRAC University with **G-Suite emails** (`@g.bracu.ac.bd`), **8-digit Student ID format** (`22101456`), and official **Department IDs** (CSE-01, CS-01, EEE-02, ECE-03, MNS-04, BBS-05, etc.).
+    * 1-Click **Demo Student / Demo Faculty** login for instant testing.
+
+---
+
+## 🏗️ Architecture & Technology Stack
 
 ```
-academic-and-research-tracker/
-├── .gitignore
-├── README.md
-│
+Academic and Research Tracker/
 ├── backend/
 │   ├── config/
-│   │   └── db.js                    # MongoDB connection with zero-crash fallback
-│   ├── models/                      # [M]ODELS: Mongoose Database Schemas
-│   │   ├── User.js                  # Common Auth Model
-│   │   ├── Resume.js
-│   │   ├── CVAnalysis.js
-│   │   ├── Job.js
-│   │   ├── Interview.js
-│   │   └── Alumni.js
-│   ├── controllers/                 # [C]ONTROLLERS: Business Logic & Data Handlers
-│   │   ├── authController.js
-│   │   ├── resumeController.js
-│   │   ├── cvAnalyzerController.js
-│   │   ├── jobController.js
-│   │   ├── interviewController.js
-│   │   └── alumniController.js
+│   │   └── db.js                    # MongoDB Atlas connection with zero-crash fallback
+│   ├── models/                      # [M]ODELS: 11 Mongoose Database Schemas
+│   │   ├── User.js                  # User Accounts & Roles
+│   │   ├── Resume.js                # CV / Resume Builder
+│   │   ├── CVAnalysis.js            # Match Analyses & ATS Reports
+│   │   ├── Job.js                   # Bdjobs & Tech Listings
+│   │   ├── Interview.js             # Simulation Attempts & Grading
+│   │   ├── Alumni.js                # BRACU Alumni Profiles
+│   │   ├── StudyPlan.js             # Daily & Monthly Study Schedules
+│   │   ├── CgpaRecord.js            # Semester CGPA Records
+│   │   ├── CoursePlan.js            # Prerequisite Roadmaps
+│   │   ├── ClassRoutine.js          # Weekly Schedules & Calendar
+│   │   └── FacultyReview.js         # Faculty Ratings & Feedback
+│   ├── controllers/                 # [C]ONTROLLERS: Business Logic & Data Seeders
 │   ├── routes/                      # ROUTES: Express REST API Endpoints
-│   │   ├── authRoutes.js
-│   │   ├── resumeRoutes.js
-│   │   ├── cvAnalyzerRoutes.js
-│   │   ├── jobRoutes.js
-│   │   ├── interviewRoutes.js
-│   │   └── alumniRoutes.js
-│   ├── .env.example                 # Environment configuration template
+│   ├── .env.example
 │   ├── package.json
 │   └── server.js                    # Backend Server Entrypoint
 │
 └── frontend/
     ├── src/
     │   ├── context/
-    │   │   └── AuthContext.jsx       # Global Auth & Session Provider
-    │   ├── features/                # [V]IEWS: Independent Feature Modules
-    │   │   ├── AuthPage.jsx          # Sign In / Sign Up View
+    │   │   └── AuthContext.jsx       # Global Auth State & Session Management
+    │   ├── features/                # [V]IEWS: 11 Feature Components
+    │   │   ├── AuthPage.jsx
+    │   │   ├── CgpaCalculator.jsx
+    │   │   ├── CoursePlanner.jsx
+    │   │   ├── ClassRoutine.jsx
+    │   │   ├── StudyPlanner.jsx
+    │   │   ├── FacultyReviews.jsx
     │   │   ├── ResumeBuilder.jsx
     │   │   ├── CVAnalyzer.jsx
     │   │   ├── JobFinder.jsx
     │   │   ├── InterviewSimulator.jsx
     │   │   └── AlumniNetworking.jsx
-    │   ├── App.jsx                  # Main Navigation & Router Shell
-    │   ├── main.jsx                 # React DOM Root
+    │   ├── App.jsx                  # Main Navigation Layout & React Router
+    │   ├── main.jsx                 # Vite Entrypoint
     │   └── index.css                # Global Design System
     ├── package.json
     └── vite.config.js
@@ -88,43 +122,42 @@ academic-and-research-tracker/
 
 ---
 
-## 🗄️ Database Setup (MongoDB)
+## 🗄️ Database Setup (MongoDB Atlas)
 
-### 👥 How Group Members Connect to the Common Shared Database (Cloud Atlas)
+The platform is connected to a shared **MongoDB Atlas Cloud Cluster** so all team members and evaluators share the exact same live database:
 
-The project includes a centralized **MongoDB Atlas Cloud Database** so all group members share the same real-time data!
-
-1. In your `backend/` folder, create a file named `.env` (or copy `.env.example` to `.env`).
-2. Add the shared connection string:
+1. In your `backend/` directory, create a `.env` file:
    ```env
    PORT=5000
    MONGO_URI=mongodb+srv://tawsiyatc_db_user:9Xgca5GSwU40ddyW@cluster0.wpuryjm.mongodb.net/academic_tracker_db?retryWrites=true&w=majority&appName=Cluster0
+   JWT_SECRET=academic_tracker_super_secret_jwt_key_2026
    ```
-3. **What this enables for the group**:
-   - **Shared User Accounts**: Accounts registered by one member can immediately be logged into by all other members.
-   - **Shared Data**: All resumes, CV match scores, job bookmarks, interview simulations, and alumni mentorship requests are synced across everyone's laptops in real time.
-4. **Inspecting Live Data in MongoDB Compass**:
-   - Download and open **MongoDB Compass** on your PC.
-   - Paste the `mongodb+srv://...` connection string from above and click **Connect**.
-   - You can visually view and edit all 6 collections: `users`, `alumnis`, `jobs`, `resumes`, `cvanalyses`, and `interviews`.
 
----
-
-### Alternative Database Options:
-
-* **Local MongoDB Community Server**:
-  If you prefer running a local database instance:
-  ```env
-  MONGO_URI=mongodb://127.0.0.1:27017/academic_tracker_db
-  ```
-
-* **Zero-Config In-Memory Fallback (No MongoDB Required)**:
-  - If MongoDB is offline or inaccessible, the backend **will NEVER crash**.
-  - All controllers automatically activate an in-memory database pre-seeded with sample student accounts, jobs, and alumni so you can test features offline!
+2. **MongoDB Compass Inspection**:
+   * Open **MongoDB Compass**.
+   * Paste the `MONGO_URI` connection string above and connect.
+   * Database Name: **`academic_tracker_db`**
+   * Active Collections:
+     * `users`
+     * `alumnis`
+     * `jobs`
+     * `resumes`
+     * `cvanalyses`
+     * `interviews`
+     * `studyplans`
+     * `cgparecords`
+     * `courseplans`
+     * `classroutines`
+     * `facultyreviews`
 
 ---
 
 ## 🚀 Quick Start Guide
+
+### Prerequisites
+* **Node.js** (v18.x or higher)
+* **npm** (v9.x or higher)
+* **Git**
 
 ### 1. Clone the Repository
 ```bash
@@ -136,168 +169,50 @@ cd Academic-and-Research-Tracker
 ```bash
 cd backend
 npm install
-cp .env.example .env    # On Windows: copy .env.example .env
 npm run dev
 ```
-*Backend will run on **http://localhost:5000***
+* Backend runs on **`http://localhost:5000`**
 
-### 3. Frontend Setup (in a new terminal)
+### 3. Frontend Setup (in a separate terminal)
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
-*Frontend will run on **http://localhost:5173***
+* Frontend runs on **`http://localhost:5173`**
 
 ---
 
 ## 🔑 Demo Login Credentials
 
-For quick testing or presentation grading, you can click the **Quick Demo** button on the UI or use:
+You can use the **1-Click Demo Login** buttons on the login page or enter:
 
-| Role | Name | Email | Password |
+| Account Type | Email | Password | Role |
 | :--- | :--- | :--- | :--- |
-| **Demo Student** | Student | `demo@student.edu` | `password123` |
-| **Demo Faculty** | Nazmul Islam | `faculty@uni.edu` | `faculty123` |
+| **Demo Student** | `demo@student.edu` | `password123` | Student |
+| **Demo Faculty** | `faculty@uni.edu` | `faculty123` | Faculty / Advisor |
 
 ---
 
-## 👥 How Group Members Can Add New Features (Step-by-Step)
+## 🌿 Git Workflow for Collaborators
 
-To add a new feature (e.g. `ResearchProjectTracker`), follow these 6 modular steps:
-
-### Step 1: Create a Database Model
-Create `backend/models/ResearchProject.js`:
-```javascript
-import mongoose from 'mongoose';
-
-const researchProjectSchema = new mongoose.Schema({
-  title: { type: String, required: true },
-  field: { type: String, required: true },
-  supervisor: { type: String, required: true },
-  status: { type: String, enum: ['Ongoing', 'Published'], default: 'Ongoing' }
-}, { timestamps: true });
-
-export default mongoose.model('ResearchProject', researchProjectSchema);
-```
-
-### Step 2: Create a Controller
-Create `backend/controllers/researchProjectController.js`:
-```javascript
-import ResearchProject from '../models/ResearchProject.js';
-import mongoose from 'mongoose';
-
-const isDbConnected = () => mongoose.connection.readyState === 1;
-let fallbackProjects = [];
-
-export const getProjects = async (req, res) => {
-  if (isDbConnected()) {
-    const projects = await ResearchProject.find();
-    return res.json(projects);
-  }
-  return res.json(fallbackProjects);
-};
-
-export const createProject = async (req, res) => {
-  if (isDbConnected()) {
-    const created = await ResearchProject.create(req.body);
-    return res.status(201).json(created);
-  }
-  const newObj = { _id: Date.now().toString(), ...req.body };
-  fallbackProjects.push(newObj);
-  return res.status(201).json(newObj);
-};
-```
-
-### Step 3: Create a Route
-Create `backend/routes/researchProjectRoutes.js`:
-```javascript
-import express from 'express';
-import { getProjects, createProject } from '../controllers/researchProjectController.js';
-
-const router = express.Router();
-router.get('/', getProjects);
-router.post('/', createProject);
-
-export default router;
-```
-
-### Step 4: Mount the Route in `backend/server.js`
-Open `backend/server.js` and add:
-```javascript
-import researchProjectRoutes from './routes/researchProjectRoutes.js';
-
-// Register endpoint
-app.use('/api/research-projects', researchProjectRoutes);
-```
-
-### Step 5: Create your React Feature Component
-Create `frontend/src/features/ResearchProjectTracker.jsx`:
-```jsx
-import React, { useState, useEffect } from 'react';
-
-const ResearchProjectTracker = () => {
-  const [projects, setProjects] = useState([]);
-
-  useEffect(() => {
-    fetch('http://localhost:5000/api/research-projects')
-      .then(res => res.json())
-      .then(data => setProjects(Array.isArray(data) ? data : []));
-  }, []);
-
-  return (
-    <div className="card">
-      <h2>Research Projects</h2>
-      {projects.map(p => <div key={p._id}>{p.title} - {p.status}</div>)}
-    </div>
-  );
-};
-
-export default ResearchProjectTracker;
-```
-
-### Step 6: Register the Feature in `frontend/src/App.jsx`
-Open `frontend/src/App.jsx`:
-1. Import your component:
-   ```javascript
-   import ResearchProjectTracker from './features/ResearchProjectTracker';
-   ```
-2. Add a `<NavLink>` in the `<nav>` sidebar:
-   ```jsx
-   <NavLink to="/research-projects" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
-     <GraduationCap size={18} /> Research Projects
-   </NavLink>
-   ```
-3. Add a `<Route>` inside `<Routes>`:
-   ```jsx
-   <Route path="/research-projects" element={<ResearchProjectTracker />} />
-   ```
-
----
-
-## 🌿 Git & GitHub Collaboration Guidelines
-
-1. **Always pull latest main branch before starting work**:
+1. **Pull Latest Changes**:
    ```bash
    git checkout main
    git pull origin main
    ```
-2. **Create a branch for your feature**:
+2. **Create Feature Branch**:
    ```bash
-   git checkout -b feature/your-feature-name
+   git checkout -b feature/module-name
    ```
-3. **Commit your changes**:
+3. **Commit & Push**:
    ```bash
    git add .
-   git commit -m "feat: added research project tracker module"
+   git commit -m "feat: your feature summary"
+   git push origin feature/module-name
    ```
-4. **Push your branch & open a Pull Request**:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-5. Team members review the PR on GitHub and click **Merge**.
 
 ---
 
-## 📜 License & Acknowledgments
-Created for University Academic & Collaborative Course Projects. Designed with standard MERN MVC best practices.
+## 📜 License
+Developed for University Academic & Collaborative Course Evaluation © 2026.
