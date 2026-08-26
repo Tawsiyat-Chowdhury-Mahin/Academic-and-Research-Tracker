@@ -8,7 +8,7 @@ const AlumniNetworking = () => {
   const [formData, setFormData] = useState({
     name: '',
     graduationYear: '',
-    degree: 'B.Sc. in Computer Science',
+    degree: 'B.Sc. in Computer Science and Engineering',
     company: '',
     role: '',
     skills: '',
@@ -201,9 +201,10 @@ const AlumniNetworking = () => {
                 onChange={(e) => setFormData({ ...formData, degree: e.target.value })} 
                 className="form-select"
               >
-                <option value="B.Sc. in Computer Science">B.Sc. in Computer Science</option>
-                <option value="B.Sc. in Software Engineering">B.Sc. in Software Engineering</option>
-                <option value="M.Sc. in Computer Science">M.Sc. in Computer Science</option>
+                <option value="B.Sc. in Computer Science and Engineering">B.Sc. in Computer Science and Engineering (CSE)</option>
+                <option value="B.Sc. in Computer Science">B.Sc. in Computer Science (CS)</option>
+                <option value="B.Sc. in Electronic and Communication Engineering">B.Sc. in Electronic & Communication Engineering (ECE)</option>
+                <option value="M.Sc. in Computer Science and Engineering">M.Sc. in Computer Science and Engineering (MCSE)</option>
                 <option value="M.Sc. in Data Science">M.Sc. in Data Science</option>
               </select>
             </div>
@@ -340,10 +341,11 @@ const AlumniNetworking = () => {
                 className="form-select"
               >
                 <option value="All">All Degrees</option>
-                <option value="B.Sc. in Computer Science">B.Sc. in Computer Science</option>
-                <option value="B.Sc. in Software Engineering">B.Sc. in Software Engineering</option>
-                <option value="M.Sc. in Computer Science">M.Sc. in Computer Science</option>
-                <option value="M.Sc. in Data Science">M.Sc. in Data Science</option>
+                <option value="Computer Science and Engineering">B.Sc. in Computer Science and Engineering (CSE)</option>
+                <option value="Computer Science">B.Sc. in Computer Science (CS)</option>
+                <option value="Electronic and Communication Engineering">B.Sc. in Electronic & Communication Engineering (ECE)</option>
+                <option value="M.Sc. in Computer Science and Engineering">M.Sc. in Computer Science and Engineering (MCSE)</option>
+                <option value="Data Science">M.Sc. in Data Science</option>
               </select>
             </div>
 
