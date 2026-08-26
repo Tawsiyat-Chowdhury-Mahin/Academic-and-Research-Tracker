@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, ArrowRight, Award, CheckCircle, Trash2, Volume2, Timer } from 'lucide-react';
+import { Play, ArrowRight, Award, CheckCircle, Trash2, Timer } from 'lucide-react';
 
 const InterviewSimulator = () => {
   const [history, setHistory] = useState([]);
@@ -22,16 +22,12 @@ const InterviewSimulator = () => {
     fetchHistory();
     return () => {
       stopTimer();
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
     };
   }, []);
 
-  // Trigger TTS voiceover and timer reset whenever question index changes
+  // Reset timer whenever question index changes
   useEffect(() => {
     if (stage === 'active' && questions.length > 0) {
-      speakQuestion(questions[currentIndex].question);
       resetTimer();
     }
   }, [currentIndex, stage, questions]);
@@ -94,16 +90,6 @@ const InterviewSimulator = () => {
     }
   };
 
-  // Text-To-Speech function
-  const speakQuestion = (text) => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel(); // stop current speech
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.rate = 0.95;
-      window.speechSynthesis.speak(utterance);
-    }
-  };
-
   const handleStart = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -148,9 +134,6 @@ const InterviewSimulator = () => {
 
   const handleSubmit = async () => {
     stopTimer();
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel();
-    }
     setLoading(true);
     
     const formattedAnswers = questions.map(q => ({
@@ -217,7 +200,7 @@ const InterviewSimulator = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
       <div>
         <h1>Interview Simulator</h1>
-        <p>Hone your verbal or written interview explanations. Choose your path, answer key technology questions, and get grading feedback.</p>
+        <p>Hone your technical interview explanations. Choose your path, answer key technology questions, and get grading feedback.</p>
       </div>
 
       {message && (
@@ -248,45 +231,40 @@ const InterviewSimulator = () => {
                   <option value="Database">🗄️ Database Systems & Data Modeling (Normalization, Indexing, ACID vs BASE)</option>
                   <option value="Backend">⚙️ Backend & Distributed Systems (Node, Express, JWT, Microservices)</option>
                   <option value="Frontend">💻 Frontend Web Development (React 19, Virtual DOM, Redux)</option>
-                  <option value="Tutor">👨‍🏫 Undergraduate Student Tutor & TA (OOP, Recursion, Debugging)</option>
+                  <option value="Tutor">👨‍🏫 Undergraduate Student Tutor & TA (OOP, Debugging, Logic)</option>
                 </select>
               </div>
 
               <div className="form-group">
                 <label className="form-label">Difficulty Level</label>
-                <div style={{ display: 'flex', gap: '10px' }}>
-                  {['Easy', 'Medium', 'Hard'].map(level => (
-                    <button
-                      key={level}
-                      type="button"
-                      onClick={() => setConfig({ ...config, difficulty: level })}
-                      className="btn"
-                      style={{ 
-                        flex: 1, 
-                        backgroundColor: config.difficulty === level ? 'var(--color-primary)' : 'var(--bg-secondary)',
-                        color: config.difficulty === level ? '#fff' : 'var(--text-primary)',
-                        borderColor: 'var(--border-color)'
-                      }}
-                    >
-                      {level}
-                    </button>
-                  ))}
-                </div>
+                <select 
+                  value={config.difficulty} 
+                  onChange={(e) => setConfig({ ...config, difficulty: e.target.value })} 
+                  className="form-select"
+                >
+                  <option value="Easy">Easy (Fundamentals & Core Syntax)</option>
+                  <option value="Medium">Medium (System Design & Practical Scenarios)</option>
+                  <option value="Hard">Hard (Performance, Edge Cases & Scale)</option>
+                </select>
               </div>
 
-              <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading}>
-                <Play size={16} /> {loading ? 'Loading Pool...' : 'Start Simulator'}
+              <div style={{ backgroundColor: 'var(--bg-primary)', padding: '12px 16px', borderRadius: '8px', border: '1px solid var(--border-color)', fontSize: '0.85rem' }}>
+                <p style={{ margin: 0 }}>⏱️ <strong>Interactive Timer:</strong> You have 60 seconds to answer each question before it auto-records.</p>
+              </div>
+
+              <button type="submit" className="btn btn-primary" style={{ marginTop: '10px' }} disabled={loading}>
+                <Play size={16} /> {loading ? 'Loading Questions...' : 'Start Interview'}
               </button>
             </form>
           </div>
 
-          {/* Previous attempts */}
+          {/* Past History Card */}
           <div className="card">
-            <h2 className="card-title">Past Evaluations</h2>
+            <h2 className="card-title">Past Evaluations ({history.length})</h2>
             {history.length === 0 ? (
-              <p style={{ fontStyle: 'italic' }}>No completed sessions found.</p>
+              <p style={{ color: 'var(--text-muted)' }}>No completed mock interviews yet. Start one on the left!</p>
             ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '300px', overflowY: 'auto' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '350px', overflowY: 'auto' }}>
                 {history.map(item => (
                   <div key={item._id} style={{ 
                     display: 'flex', 
@@ -355,17 +333,7 @@ const InterviewSimulator = () => {
           </div>
 
           <div style={{ marginBottom: '20px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '15px' }}>
-              <h3 style={{ fontSize: '1.25rem', lineHeight: 1.4, flex: 1 }}>{questions[currentIndex].question}</h3>
-              <button 
-                onClick={() => speakQuestion(questions[currentIndex].question)} 
-                className="btn btn-secondary btn-sm" 
-                style={{ padding: '6px', borderRadius: '50%' }}
-                title="Speak Question"
-              >
-                <Volume2 size={16} />
-              </button>
-            </div>
+            <h3 style={{ fontSize: '1.25rem', lineHeight: 1.4, marginBottom: '15px' }}>{questions[currentIndex].question}</h3>
             <textarea
               value={answers[questions[currentIndex].id] || ''}
               onChange={(e) => handleAnswerChange(e.target.value)}
@@ -381,74 +349,80 @@ const InterviewSimulator = () => {
             </button>
             <div style={{ display: 'flex', gap: '10px' }}>
               {currentIndex < questions.length - 1 ? (
-                <button onClick={handleNext} className="btn btn-primary" disabled={!(answers[questions[currentIndex].id]?.trim())}>
-                  Next
+                <button onClick={handleNext} className="btn btn-primary">
+                  Next Question <ArrowRight size={16} />
                 </button>
               ) : (
-                <button onClick={handleSubmit} className="btn btn-success" style={{ backgroundColor: 'var(--color-success)', color: '#fff' }} disabled={loading || !(answers[questions[currentIndex].id]?.trim())}>
-                  {loading ? 'Evaluating...' : 'Submit Interview'}
+                <button onClick={handleSubmit} className="btn btn-success" disabled={loading}>
+                  <CheckCircle size={16} /> {loading ? 'Grading Answers...' : 'Submit Interview'}
                 </button>
               )}
             </div>
           </div>
-          
-          <style>{`
-            @keyframes pulse {
-              0% { transform: scale(1); }
-              50% { transform: scale(1.1); }
-              100% { transform: scale(1); }
-            }
-            .pulse-animation {
-              animation: pulse 1s infinite;
-              color: var(--color-danger);
-            }
-          `}</style>
         </div>
       )}
 
       {stage === 'results' && results && (
-        /* Evaluation Feedback Page */
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '800px', margin: '0 auto', width: '100%' }}>
-          <div className="card" style={{ display: 'flex', alignItems: 'center', gap: '20px', backgroundColor: 'var(--color-primary-light)', borderColor: 'var(--color-primary)' }}>
-            <Award size={48} style={{ color: 'var(--color-primary)' }} />
-            <div>
-              <h2 style={{ color: 'var(--color-primary)', fontSize: '1.6rem' }}>Evaluation Complete!</h2>
-              <p style={{ fontWeight: 600 }}>Overall Score: {results.overallScore}% ({results.role} - {results.difficulty})</p>
+        /* Results Report */
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          <div className="card" style={{ textAlign: 'center', padding: '30px' }}>
+            <div style={{ 
+              display: 'inline-flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              width: '80px', 
+              height: '80px', 
+              borderRadius: '50%', 
+              backgroundColor: 'var(--color-primary-light)',
+              color: 'var(--color-primary)',
+              marginBottom: '15px'
+            }}>
+              <Award size={40} />
             </div>
+            <h2>Evaluation Report: {results.role}</h2>
+            <p style={{ color: 'var(--text-secondary)' }}>Difficulty: {results.difficulty}</p>
+            
+            <div style={{ margin: '20px 0' }}>
+              <div style={{ fontSize: '2.5rem', fontWeight: 'bold', color: results.overallScore >= 70 ? 'var(--color-success)' : 'var(--color-warning)' }}>
+                {results.overallScore}%
+              </div>
+              <p style={{ fontWeight: 500 }}>
+                {results.overallScore >= 80 ? 'Outstanding! Strong architectural understanding.' : 
+                 results.overallScore >= 60 ? 'Good effort! Review the specific feedback below to polish your answers.' : 
+                 'Needs Practice. Strengthen your core definitions and examples.'}
+              </p>
+            </div>
+
+            <button onClick={() => setStage('config')} className="btn btn-primary">
+              Take Another Interview
+            </button>
           </div>
 
-          {results.questionsAndAnswers.map((item, idx) => (
-            <div key={idx} className="card" style={{ borderLeft: `5px solid ${item.score >= 75 ? 'var(--color-success)' : item.score >= 40 ? 'var(--color-warning)' : 'var(--color-danger)'}` }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                <h3 style={{ fontSize: '1.05rem', width: '85%' }}>Q{idx + 1}: {item.question}</h3>
-                <span style={{ 
-                  fontWeight: 'bold', 
-                  color: item.score >= 75 ? 'var(--color-success)' : item.score >= 40 ? 'var(--color-warning)' : 'var(--color-danger)'
-                }}>{item.score}/100</span>
-              </div>
-              
-              <div style={{ backgroundColor: 'var(--bg-primary)', padding: '12px', borderRadius: '6px', marginBottom: '10px' }}>
-                <p style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)' }}>Your Answer:</p>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', whiteSpace: 'pre-line', marginTop: '4px' }}>{item.userAnswer}</p>
-              </div>
+          <div className="card">
+            <h3 className="card-title">Detailed Feedback by Question</h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              {results.questionsAndAnswers?.map((qa, index) => (
+                <div key={index} style={{ borderBottom: index < results.questionsAndAnswers.length - 1 ? '1px solid var(--border-color)' : 'none', paddingBottom: '15px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                    <h4 style={{ fontSize: '1.05rem', margin: 0 }}>Q{index + 1}: {qa.question}</h4>
+                    <span className="badge badge-primary">{qa.score || 0}/100</span>
+                  </div>
+                  
+                  <div style={{ backgroundColor: 'var(--bg-primary)', padding: '10px 14px', borderRadius: '6px', margin: '8px 0', fontSize: '0.9rem' }}>
+                    <strong>Your Answer:</strong>
+                    <p style={{ margin: '4px 0 0 0', fontStyle: qa.userAnswer === '(No response submitted)' ? 'italic' : 'normal', color: qa.userAnswer === '(No response submitted)' ? 'var(--text-muted)' : 'var(--text-primary)' }}>
+                      {qa.userAnswer}
+                    </p>
+                  </div>
 
-              <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
-                <CheckCircle size={16} style={{ color: 'var(--color-success)', marginTop: '4px', flexShrink: 0 }} />
-                <div>
-                  <p style={{ fontSize: '0.85rem', fontWeight: 600 }}>Feedback:</p>
-                  <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)' }}>{item.feedback}</p>
+                  <div style={{ backgroundColor: 'var(--color-primary-light)', padding: '10px 14px', borderRadius: '6px', color: 'var(--text-primary)', fontSize: '0.9rem' }}>
+                    <strong>Feedback & Suggestions:</strong>
+                    <p style={{ margin: '4px 0 0 0' }}>{qa.feedback}</p>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
-
-          <button 
-            onClick={() => { setStage('config'); setResults(null); }} 
-            className="btn btn-primary" 
-            style={{ width: '200px', alignSelf: 'center' }}
-          >
-            Start New Session
-          </button>
+          </div>
         </div>
       )}
     </div>
