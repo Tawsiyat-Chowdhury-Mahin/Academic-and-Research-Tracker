@@ -1,34 +1,124 @@
 import Interview from '../models/Interview.js';
 import mongoose from 'mongoose';
 
-// Predefined pools of questions and keywords for scoring
+// Predefined pools of questions, categorized keywords, and scoring rubrics
 const questionPool = {
-  Frontend: {
+  Architecture: {
     Easy: [
-      { id: 1, question: "What is React Virtual DOM and how does it work?", keywords: ["virtual dom", "reconciliation", "diffing", "render"] },
-      { id: 2, question: "Explain the difference between state and props in React.", keywords: ["state", "props", "mutable", "immutable", "parent", "component"] }
+      {
+        id: 1,
+        question: "Explain the MVC (Model-View-Controller) architectural pattern and how data and control flow between each component.",
+        keywords: ["model", "view", "controller", "data", "business logic", "separation of concerns", "route", "database"]
+      },
+      {
+        id: 2,
+        question: "What are the core differences between Monolithic and Microservices software architectures?",
+        keywords: ["monolith", "microservices", "decoupled", "independent", "deploy", "scalability", "api gateway", "service"]
+      }
     ],
     Medium: [
-      { id: 3, question: "Describe React life-cycle methods or React Hooks like useEffect.", keywords: ["hook", "useeffect", "dependency", "lifecycle", "mount", "unmount"] },
-      { id: 4, question: "How does React state batching work?", keywords: ["batching", "asynchronous", "render", "update"] }
+      {
+        id: 3,
+        question: "Explain the SOLID principles in Software Engineering and why they are essential for maintainable system design.",
+        keywords: ["solid", "single responsibility", "open-closed", "liskov", "interface segregation", "dependency inversion", "maintainability", "coupling"]
+      },
+      {
+        id: 4,
+        question: "What is Clean Architecture (or Hexagonal Architecture) and how does the Dependency Inversion Principle protect core domain entities?",
+        keywords: ["clean architecture", "domain", "entities", "use cases", "dependency inversion", "decoupled", "framework independent", "adapters"]
+      }
     ],
     Hard: [
-      { id: 5, question: "How do you optimize performance in a large React application?", keywords: ["memo", "lazy", "suspense", "bundle", "virtualization", "re-render"] },
-      { id: 6, question: "Describe standard React patterns for state management (Context API vs Redux).", keywords: ["redux", "context", "store", "reducer", "action", "provider"] }
+      {
+        id: 5,
+        question: "How do you manage distributed transactions and data consistency across independent microservices (e.g. Saga Pattern vs Two-Phase Commit)?",
+        keywords: ["saga", "choreography", "orchestration", "distributed transaction", "eventual consistency", "compensating transaction", "message broker", "2pc"]
+      },
+      {
+        id: 6,
+        question: "Explain the CAP Theorem and how modern distributed cloud systems make trade-offs between Consistency, Availability, and Partition Tolerance.",
+        keywords: ["cap theorem", "consistency", "availability", "partition tolerance", "network partition", "pacelc", "trade-off", "distributed system"]
+      }
+    ]
+  },
+  Database: {
+    Easy: [
+      {
+        id: 1,
+        question: "Explain Database Normalization (1NF, 2NF, 3NF, BCNF) and why we eliminate data redundancy and insertion/deletion anomalies.",
+        keywords: ["normalization", "1nf", "2nf", "3nf", "bcnf", "redundancy", "anomaly", "functional dependency", "primary key", "foreign key"]
+      },
+      {
+        id: 2,
+        question: "What is the difference between Primary Key, Foreign Key, and Unique Key constraints in relational database modeling?",
+        keywords: ["primary key", "foreign key", "unique", "relational", "integrity", "referential", "null", "schema", "table"]
+      }
+    ],
+    Medium: [
+      {
+        id: 3,
+        question: "Explain ACID properties in relational database transactions versus the BASE model in distributed NoSQL databases.",
+        keywords: ["acid", "atomicity", "consistency", "isolation", "durability", "base", "eventual consistency", "transaction", "commit", "rollback"]
+      },
+      {
+        id: 4,
+        question: "How does B-Tree and Hash database indexing work under the hood, and what are the trade-offs between Read speed versus Write overhead?",
+        keywords: ["indexing", "b-tree", "hash", "lookup", "query performance", "write overhead", "disk i/o", "clustered index", "scan"]
+      }
+    ],
+    Hard: [
+      {
+        id: 5,
+        question: "How do you scale a relational or NoSQL database architecture for high throughput using Horizontal Sharding, Partitioning, and Read-Replicas?",
+        keywords: ["sharding", "horizontal partitioning", "read-replica", "shard key", "replication", "load balancing", "high availability", "failover"]
+      },
+      {
+        id: 6,
+        question: "Explain Polyglot Persistence: When should an enterprise architecture use a Relational DB (PostgreSQL), a Document Store (MongoDB), and an In-Memory Cache (Redis)?",
+        keywords: ["polyglot persistence", "postgresql", "mongodb", "redis", "in-memory", "cache", "structured", "unstructured", "acid", "document"]
+      }
+    ]
+  },
+  Frontend: {
+    Easy: [
+      { id: 1, question: "What is React Virtual DOM and how does reconciliation / diffing work?", keywords: ["virtual dom", "reconciliation", "diffing", "render", "state", "component"] },
+      { id: 2, question: "Explain the difference between state and props in React components.", keywords: ["state", "props", "mutable", "immutable", "parent", "component", "unidirectional"] }
+    ],
+    Medium: [
+      { id: 3, question: "Describe React Hooks lifecycle behavior with useEffect and dependency arrays.", keywords: ["hook", "useeffect", "dependency", "lifecycle", "mount", "unmount", "cleanup"] },
+      { id: 4, question: "How does React state batching work in modern React 18/19?", keywords: ["batching", "asynchronous", "render", "update", "performance", "queue"] }
+    ],
+    Hard: [
+      { id: 5, question: "How do you optimize rendering performance in large-scale React applications?", keywords: ["memo", "lazy", "suspense", "bundle", "virtualization", "re-render", "profiler"] },
+      { id: 6, question: "Compare state management patterns: Context API, Redux Toolkit, and Zustand for enterprise frontends.", keywords: ["redux", "context", "store", "reducer", "action", "provider", "zustand", "immutable"] }
     ]
   },
   Backend: {
     Easy: [
-      { id: 1, question: "What is Middleware in Express?", keywords: ["middleware", "request", "response", "next", "pipeline"] },
-      { id: 2, question: "What is the difference between SQL and NoSQL databases?", keywords: ["sql", "nosql", "relational", "schema", "flexible", "scale"] }
+      { id: 1, question: "What is Express Middleware and how does the request-response cycle work with next()?", keywords: ["middleware", "request", "response", "next", "pipeline", "router", "express"] },
+      { id: 2, question: "What are the key architectural differences between SQL (Relational) and NoSQL (Document) databases?", keywords: ["sql", "nosql", "relational", "schema", "flexible", "scale", "horizontal", "tables"] }
     ],
     Medium: [
-      { id: 3, question: "How do you handle error handling in an Express app?", keywords: ["error", "middleware", "next", "try-catch", "boundary"] },
-      { id: 4, question: "Explain JWT (JSON Web Token) authentication flow.", keywords: ["jwt", "token", "header", "payload", "signature", "verify", "auth"] }
+      { id: 3, question: "How do you implement centralized error handling and input validation in an Express REST API?", keywords: ["error", "middleware", "next", "try-catch", "validation", "status code", "boundary"] },
+      { id: 4, question: "Explain the JWT (JSON Web Token) authentication flow and token refresh strategy.", keywords: ["jwt", "token", "header", "payload", "signature", "verify", "auth", "refresh token", "cookies"] }
     ],
     Hard: [
-      { id: 5, question: "How do you design a scalable microservices architecture?", keywords: ["microservices", "scale", "gateway", "service-discovery", "decouple"] },
-      { id: 6, question: "What is database indexing and how does it improve query speed?", keywords: ["indexing", "b-tree", "search", "write", "performance", "query"] }
+      { id: 5, question: "How do you design a scalable microservices architecture with an API Gateway and Service Discovery?", keywords: ["microservices", "scale", "gateway", "service-discovery", "decouple", "load balancer", "resilience"] },
+      { id: 6, question: "Explain database connection pooling, indexing strategies, and query optimization for high-concurrency Node.js backends.", keywords: ["connection pool", "indexing", "b-tree", "query optimization", "concurrency", "performance", "async"] }
+    ]
+  },
+  Tutor: {
+    Easy: [
+      { id: 1, question: "How do you explain the concept of Recursion and Call Stack frames to a beginner CSE student?", keywords: ["recursion", "base case", "call stack", "frame", "termination", "stack overflow", "function call"] },
+      { id: 2, question: "Explain the Four Pillars of OOP (Encapsulation, Abstraction, Inheritance, Polymorphism) with relatable code analogies.", keywords: ["encapsulation", "abstraction", "inheritance", "polymorphism", "class", "object", "oop", "overriding"] }
+    ],
+    Medium: [
+      { id: 3, question: "How would you mentor a student who is struggling with Linked List pointer manipulation and Segfaults / NullPointerExceptions?", keywords: ["pointer", "null", "reference", "node", "head", "next", "visualization", "edge cases", "debugging"] },
+      { id: 4, question: "Explain the difference between Pass-by-Value and Pass-by-Reference in Java / Python to a junior student.", keywords: ["pass by value", "pass by reference", "memory", "heap", "stack", "object reference", "mutable", "immutable"] }
+    ],
+    Hard: [
+      { id: 5, question: "How do you break down Big-O asymptotic analysis (Time and Space Complexity) when explaining Divide and Conquer algorithms like Merge Sort?", keywords: ["big o", "time complexity", "space complexity", "divide and conquer", "log n", "recurrence relation", "merge sort"] },
+      { id: 6, question: "A student's multithreaded program encounters a Deadlock / Race Condition. How do you guide them to identify and resolve it?", keywords: ["deadlock", "race condition", "mutex", "lock", "synchronization", "thread safety", "critical section"] }
     ]
   }
 };
@@ -37,24 +127,39 @@ const questionPool = {
 let mockInterviews = [
   {
     _id: "mock-int-1",
-    role: "Frontend",
+    role: "Architecture",
     difficulty: "Medium",
-    overallScore: 75,
+    overallScore: 88,
     questionsAndAnswers: [
       {
-        question: "Describe React life-cycle methods or React Hooks like useEffect.",
-        userAnswer: "We use useEffect hook to handle side effects in functional components. It takes a dependency array and triggers on mounting or updates.",
-        feedback: "Good attempt, but you should mention more key concepts such as: lifecycle, unmount.",
-        score: 65
+        question: "Explain the SOLID principles in Software Engineering and why they are essential for maintainable system design.",
+        userAnswer: "SOLID stands for Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion. They ensure low coupling and high cohesion across modules.",
+        feedback: "Excellent response! You clearly articulated all 5 principles and highlighted coupling and cohesion.",
+        score: 90
       },
       {
-        question: "How does React state batching work?",
-        userAnswer: "React batches state updates asynchronously to group multiple updates together, rendering the UI only once for performance efficiency.",
-        feedback: "Excellent response! You mentioned core technical concepts.",
-        score: 85
+        question: "What is Clean Architecture and how does the Dependency Inversion Principle protect core domain entities?",
+        userAnswer: "Clean Architecture organizes code in concentric layers where dependencies only point inward towards business domain logic and use cases.",
+        feedback: "Great answer! Mentioning concentric layers and inward dependencies directly matches the architecture rubric.",
+        score: 86
       }
     ],
     createdAt: new Date(Date.now() - 1800000)
+  },
+  {
+    _id: "mock-int-2",
+    role: "Database",
+    difficulty: "Easy",
+    overallScore: 92,
+    questionsAndAnswers: [
+      {
+        question: "Explain Database Normalization (1NF, 2NF, 3NF, BCNF) and why we eliminate data redundancy and insertion/deletion anomalies.",
+        userAnswer: "Normalization decomposes relations to remove transitive and partial functional dependencies, preventing update, insertion, and deletion anomalies.",
+        feedback: "Superb answer covering 1NF to BCNF and anomaly prevention.",
+        score: 95
+      }
+    ],
+    createdAt: new Date(Date.now() - 3600000)
   }
 ];
 
@@ -66,8 +171,8 @@ const isConnected = () => mongoose.connection.readyState === 1;
 export const getQuestions = (req, res) => {
   const { role, difficulty } = req.body;
   
-  const roleQuestions = questionPool[role] || questionPool["Frontend"];
-  const finalQuestions = roleQuestions[difficulty] || roleQuestions["Medium"];
+  const roleQuestions = questionPool[role] || questionPool["Architecture"] || questionPool["Frontend"];
+  const finalQuestions = roleQuestions[difficulty] || roleQuestions["Medium"] || roleQuestions["Easy"];
   
   res.status(200).json(finalQuestions.map(q => ({ id: q.id, question: q.question })));
 };
@@ -79,50 +184,48 @@ export const submitInterview = async (req, res) => {
   try {
     const { role, difficulty, answers } = req.body;
     
-    if (!answers || !Array.isArray(answers)) {
-      return res.status(400).json({ message: "Invalid answers structure" });
+    if (!role || !difficulty || !answers) {
+      return res.status(400).json({ message: 'Missing required interview parameters' });
     }
 
-    const rolePool = questionPool[role] || questionPool["Frontend"];
-    const allQuestions = [...rolePool.Easy, ...rolePool.Medium, ...rolePool.Hard];
+    const roleQuestions = questionPool[role] || questionPool["Architecture"] || questionPool["Frontend"];
+    const pool = roleQuestions[difficulty] || roleQuestions["Medium"];
 
     let totalScore = 0;
-    const questionsAndAnswers = answers.map(ans => {
-      const original = allQuestions.find(q => q.question === ans.question || q.id === ans.questionId);
-      if (!original) {
-        return {
-          question: ans.question || "Unknown Question",
-          userAnswer: ans.userAnswer,
-          feedback: "Question not found in system pool. Neutral scoring applied.",
-          score: 50
-        };
-      }
+    const questionsAndAnswers = [];
 
-      // Keyword matching algorithm
-      const ansLower = ans.userAnswer.toLowerCase();
-      const matched = original.keywords.filter(keyword => ansLower.includes(keyword));
-      const matchRatio = matched.length / original.keywords.length;
-      const score = Math.round(matchRatio * 100);
+    for (const q of pool) {
+      const userAnswer = answers[q.id] || "";
+      const lowerAnswer = userAnswer.toLowerCase();
       
+      const matched = q.keywords.filter(kw => lowerAnswer.includes(kw.toLowerCase()));
+      const percentage = Math.round((matched.length / q.keywords.length) * 100);
+      
+      let itemScore = Math.min(100, Math.max(30, percentage * 2));
+      if (!userAnswer.trim()) itemScore = 0;
+
       let feedback = "";
-      if (score >= 80) {
-        feedback = "Excellent response! You mentioned core technical concepts.";
-      } else if (score >= 40) {
-        feedback = `Good attempt, but you should mention more key concepts such as: ${original.keywords.filter(kw => !ansLower.includes(kw)).join(', ')}.`;
+      if (itemScore >= 80) {
+        feedback = "Excellent response! You articulated core architectural and technical concepts thoroughly.";
+      } else if (itemScore >= 50) {
+        const missed = q.keywords.filter(kw => !lowerAnswer.includes(kw.toLowerCase()));
+        feedback = `Good attempt. To strengthen your answer, elaborate further on: ${missed.slice(0, 3).join(', ')}.`;
+      } else if (itemScore > 0) {
+        feedback = `Basic answer provided. Make sure to explain system trade-offs and keyword concepts like: ${q.keywords.slice(0, 4).join(', ')}.`;
       } else {
-        feedback = `Weak answer. Please study: ${original.keywords.join(', ')}.`;
+        feedback = "No answer was recorded for this question.";
       }
 
-      totalScore += score;
-      return {
-        question: original.question,
-        userAnswer: ans.userAnswer,
+      totalScore += itemScore;
+      questionsAndAnswers.push({
+        question: q.question,
+        userAnswer,
         feedback,
-        score
-      };
-    });
+        score: itemScore
+      });
+    }
 
-    const overallScore = Math.round(totalScore / answers.length);
+    const overallScore = pool.length > 0 ? Math.round(totalScore / pool.length) : 0;
 
     if (!isConnected()) {
       const newInterview = {
@@ -137,15 +240,15 @@ export const submitInterview = async (req, res) => {
       return res.status(201).json(newInterview);
     }
 
-    const interview = new Interview({
+    const interviewRecord = new Interview({
       role,
       difficulty,
       overallScore,
       questionsAndAnswers
     });
 
-    const savedInterview = await interview.save();
-    res.status(201).json(savedInterview);
+    const saved = await interviewRecord.save();
+    res.status(201).json(saved);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -159,7 +262,11 @@ export const getInterviews = async (req, res) => {
     if (!isConnected()) {
       return res.status(200).json(mockInterviews);
     }
-    const interviews = await Interview.find({}).sort({ createdAt: -1 });
+    let interviews = await Interview.find({}).sort({ createdAt: -1 });
+    if (interviews.length === 0) {
+      await Interview.insertMany(mockInterviews.map(({ _id, ...rest }) => rest));
+      interviews = await Interview.find({}).sort({ createdAt: -1 });
+    }
     res.status(200).json(interviews);
   } catch (error) {
     res.status(500).json({ message: error.message });

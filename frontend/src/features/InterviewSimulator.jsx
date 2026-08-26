@@ -4,7 +4,7 @@ import { Play, ArrowRight, Award, CheckCircle, Trash2, Volume2, Timer } from 'lu
 const InterviewSimulator = () => {
   const [history, setHistory] = useState([]);
   const [stage, setStage] = useState('config'); // config, active, results
-  const [config, setConfig] = useState({ role: 'Frontend', difficulty: 'Medium' });
+  const [config, setConfig] = useState({ role: 'Architecture', difficulty: 'Medium' });
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState({});
@@ -222,14 +222,17 @@ const InterviewSimulator = () => {
             <h2 className="card-title">Configure Interview Session</h2>
             <form onSubmit={handleStart} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
               <div className="form-group">
-                <label className="form-label">Job Role</label>
+                <label className="form-label">Interview Track / Specialization</label>
                 <select 
                   value={config.role} 
                   onChange={(e) => setConfig({ ...config, role: e.target.value })} 
                   className="form-select"
                 >
-                  <option value="Frontend">Frontend Developer</option>
-                  <option value="Backend">Backend Engineer</option>
+                  <option value="Architecture">🏗️ Software Engineering Models & Architecture (MVC, Clean Arch, SOLID)</option>
+                  <option value="Database">🗄️ Database Systems & Data Modeling (Normalization, Indexing, ACID vs BASE)</option>
+                  <option value="Backend">⚙️ Backend & Distributed Systems (Node, Express, JWT, Microservices)</option>
+                  <option value="Frontend">💻 Frontend Web Development (React 19, Virtual DOM, Redux)</option>
+                  <option value="Tutor">👨‍🏫 Undergraduate Student Tutor & TA (OOP, Recursion, Debugging)</option>
                 </select>
               </div>
 
