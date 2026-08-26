@@ -11,6 +11,7 @@ const interviewSchema = mongoose.Schema(
         userAnswer: { type: String, default: '(No response provided)' },
         feedback: { type: String, default: 'Evaluation completed.' },
         score: { type: Number, default: 0 },
+        idealAnswer: { type: String, default: '' },
       }
     ],
   },

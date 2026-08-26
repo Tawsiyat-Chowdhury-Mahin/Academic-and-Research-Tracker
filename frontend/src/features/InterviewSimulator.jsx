@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, ArrowRight, Award, CheckCircle, Trash2, Timer } from 'lucide-react';
+import { Play, ArrowRight, Award, CheckCircle, Trash2, Timer, Copy, Check, Sparkles, BookOpen } from 'lucide-react';
 
 const InterviewSimulator = () => {
   const [history, setHistory] = useState([]);
@@ -11,6 +11,7 @@ const InterviewSimulator = () => {
   const [results, setResults] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [copiedIndex, setCopiedIndex] = useState(null);
   
   // Timer states
   const [timeLeft, setTimeLeft] = useState(60);
@@ -55,7 +56,6 @@ const InterviewSimulator = () => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
           stopTimer();
-          // Auto move to next or auto submit
           handleAutoAdvance();
           return 0;
         }
@@ -76,7 +76,6 @@ const InterviewSimulator = () => {
   };
 
   const handleAutoAdvance = () => {
-    // Save current answer as "Timeout" if empty
     const currentQuestionId = questions[currentIndex].id;
     if (!answers[currentQuestionId]?.trim()) {
       setAnswers(prev => ({ ...prev, [currentQuestionId]: "(No response submitted within time limit)" }));
@@ -85,7 +84,6 @@ const InterviewSimulator = () => {
     if (currentIndex < questions.length - 1) {
       setCurrentIndex((prev) => prev + 1);
     } else {
-      // Auto submit if last question times out
       handleSubmit();
     }
   };
@@ -167,12 +165,13 @@ const InterviewSimulator = () => {
         _id: `int_${Date.now()}`,
         role: config.role,
         difficulty: config.difficulty,
-        overallScore: 82,
-        questionsAndAnswers: formattedAnswers.map((item, idx) => ({
+        overallScore: 85,
+        questionsAndAnswers: formattedAnswers.map((item) => ({
           question: item.question,
           userAnswer: item.userAnswer && item.userAnswer !== '(No response submitted)' ? item.userAnswer : '(Answer recorded)',
           feedback: 'Solid response! You demonstrated a good understanding of foundational software engineering principles and architectural patterns.',
-          score: item.userAnswer && item.userAnswer !== '(No response submitted)' ? 85 : 60
+          score: item.userAnswer && item.userAnswer !== '(No response submitted)' ? 85 : 10,
+          idealAnswer: "A complete, comprehensive explanation covering all core architectural principles and technical requirements."
         })),
         createdAt: new Date()
       };
@@ -200,7 +199,7 @@ const InterviewSimulator = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
       <div>
         <h1>Interview Simulator</h1>
-        <p>Hone your technical interview explanations. Choose your path, answer key technology questions, and get grading feedback.</p>
+        <p>Hone your technical interview explanations. Choose your path, answer key technology questions, and get grading feedback along with 100% standard model answers.</p>
       </div>
 
       {message && (
@@ -249,7 +248,7 @@ const InterviewSimulator = () => {
               </div>
 
               <div style={{ backgroundColor: 'var(--bg-primary)', padding: '12px 16px', borderRadius: '8px', border: '1px solid var(--border-color)', fontSize: '0.85rem' }}>
-                <p style={{ margin: 0 }}>⏱️ <strong>Interactive Timer:</strong> You have 60 seconds to answer each question before it auto-records.</p>
+                <p style={{ margin: 0 }}>⏱️ <strong>Interactive Timer:</strong> You have 60 seconds to answer each question before it auto-records. After submitting, you'll receive full feedback and 100% benchmark model answers!</p>
               </div>
 
               <button type="submit" className="btn btn-primary" style={{ marginTop: '10px' }} disabled={loading}>
@@ -387,9 +386,9 @@ const InterviewSimulator = () => {
                 {results.overallScore}%
               </div>
               <p style={{ fontWeight: 500 }}>
-                {results.overallScore >= 80 ? 'Outstanding! Strong architectural understanding.' : 
-                 results.overallScore >= 60 ? 'Good effort! Review the specific feedback below to polish your answers.' : 
-                 'Needs Practice. Strengthen your core definitions and examples.'}
+                {results.overallScore >= 80 ? 'Outstanding! Strong technical and architectural articulation.' : 
+                 results.overallScore >= 60 ? 'Good effort! Review the 100% benchmark model answers below to master this topic.' : 
+                 'Needs Practice. Study the 100% benchmark answers below to improve your terminology and system design depth.'}
               </p>
             </div>
 
@@ -399,26 +398,68 @@ const InterviewSimulator = () => {
           </div>
 
           <div className="card">
-            <h3 className="card-title">Detailed Feedback by Question</h3>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <h3 className="card-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <BookOpen size={20} style={{ color: 'var(--color-primary)' }} />
+              Detailed Feedback & 100% Benchmark Model Answers
+            </h3>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
               {results.questionsAndAnswers?.map((qa, index) => (
-                <div key={index} style={{ borderBottom: index < results.questionsAndAnswers.length - 1 ? '1px solid var(--border-color)' : 'none', paddingBottom: '15px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
-                    <h4 style={{ fontSize: '1.05rem', margin: 0 }}>Q{index + 1}: {qa.question}</h4>
-                    <span className="badge badge-primary">{qa.score || 0}/100</span>
+                <div key={index} style={{ borderBottom: index < results.questionsAndAnswers.length - 1 ? '1px solid var(--border-color)' : 'none', paddingBottom: '20px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '10px' }}>
+                    <h4 style={{ fontSize: '1.05rem', margin: 0, fontWeight: 700 }}>Q{index + 1}: {qa.question}</h4>
+                    <span className="badge badge-primary" style={{ fontSize: '0.8rem', padding: '4px 10px' }}>
+                      {qa.score || 0}/100
+                    </span>
                   </div>
                   
-                  <div style={{ backgroundColor: 'var(--bg-primary)', padding: '10px 14px', borderRadius: '6px', margin: '8px 0', fontSize: '0.9rem' }}>
-                    <strong>Your Answer:</strong>
-                    <p style={{ margin: '4px 0 0 0', fontStyle: qa.userAnswer === '(No response submitted)' ? 'italic' : 'normal', color: qa.userAnswer === '(No response submitted)' ? 'var(--text-muted)' : 'var(--text-primary)' }}>
+                  {/* User's Answer */}
+                  <div style={{ backgroundColor: 'var(--bg-primary)', padding: '12px 16px', borderRadius: '8px', border: '1px solid var(--border-color)', margin: '10px 0', fontSize: '0.9rem' }}>
+                    <strong style={{ color: 'var(--text-secondary)' }}>Your Answer:</strong>
+                    <p style={{ margin: '6px 0 0 0', fontStyle: qa.userAnswer === '(No response submitted)' || qa.userAnswer === '(No response recorded)' ? 'italic' : 'normal', color: qa.userAnswer === '(No response submitted)' || qa.userAnswer === '(No response recorded)' ? 'var(--text-muted)' : 'var(--text-primary)' }}>
                       {qa.userAnswer}
                     </p>
                   </div>
 
-                  <div style={{ backgroundColor: 'var(--color-primary-light)', padding: '10px 14px', borderRadius: '6px', color: 'var(--text-primary)', fontSize: '0.9rem' }}>
-                    <strong>Feedback & Suggestions:</strong>
-                    <p style={{ margin: '4px 0 0 0' }}>{qa.feedback}</p>
+                  {/* Feedback */}
+                  <div style={{ backgroundColor: 'var(--color-primary-light)', padding: '12px 16px', borderRadius: '8px', border: '1px solid #bfdbfe', color: 'var(--text-primary)', fontSize: '0.9rem', marginBottom: '10px' }}>
+                    <strong style={{ color: 'var(--color-primary)' }}>Feedback & Suggestions:</strong>
+                    <p style={{ margin: '4px 0 0 0', lineHeight: 1.4 }}>{qa.feedback}</p>
                   </div>
+
+                  {/* 100% Benchmark Model Answer */}
+                  {qa.idealAnswer && (
+                    <div style={{ 
+                      backgroundColor: '#f0fdf4', 
+                      padding: '14px 16px', 
+                      borderRadius: '8px', 
+                      border: '1px solid #86efac', 
+                      color: '#14532d', 
+                      fontSize: '0.9rem' 
+                    }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+                        <strong style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: '#15803d', fontSize: '0.92rem' }}>
+                          <Sparkles size={16} /> 100% Benchmark Model Answer:
+                        </strong>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            navigator.clipboard.writeText(qa.idealAnswer);
+                            setCopiedIndex(index);
+                            setTimeout(() => setCopiedIndex(null), 2000);
+                          }}
+                          className="btn btn-secondary btn-sm"
+                          style={{ padding: '3px 8px', fontSize: '0.75rem', display: 'inline-flex', alignItems: 'center', gap: '4px', backgroundColor: '#ffffff' }}
+                          title="Copy 100% answer"
+                        >
+                          {copiedIndex === index ? <Check size={13} style={{ color: 'var(--color-success)' }} /> : <Copy size={13} />}
+                          {copiedIndex === index ? 'Copied' : 'Copy Answer'}
+                        </button>
+                      </div>
+                      <p style={{ margin: 0, lineHeight: 1.5, color: '#166534' }}>
+                        {qa.idealAnswer}
+                      </p>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
