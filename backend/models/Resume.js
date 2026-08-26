@@ -5,7 +5,10 @@ const resumeSchema = mongoose.Schema(
     fullName: { type: String, required: true },
     email: { type: String, required: true },
     phone: { type: String, required: true },
-    summary: { type: String },
+    linkedin: { type: String, default: '' },
+    github: { type: String, default: '' },
+    location: { type: String, default: '' },
+    summary: { type: String, default: '' },
     skills: [{ type: String }],
     education: [
       {

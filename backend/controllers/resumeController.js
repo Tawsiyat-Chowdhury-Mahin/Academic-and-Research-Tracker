@@ -5,14 +5,45 @@ import mongoose from 'mongoose';
 let mockResumes = [
   {
     _id: "mock-res-1",
-    fullName: "Alice Dev",
-    email: "alice.dev@example.com",
-    phone: "+1 555-0199",
-    summary: "Passionate Full Stack Developer with 2+ years of experience in React and Node.js.",
-    skills: ["React", "Node.js", "Express", "MongoDB", "JavaScript", "HTML/CSS"],
+    fullName: "Tawsiyat Chowdhury Mahin",
+    email: "mahin.chowdhury@student.bracu.ac.bd",
+    phone: "+880 1712-345678",
+    linkedin: "https://linkedin.com/in/tawsiyat-mahin",
+    github: "https://github.com/Tawsiyat-Chowdhury-Mahin",
+    location: "Dhaka, Bangladesh",
+    summary: "Passionate Full Stack Developer with 2+ years of experience in React, Node.js, Express, and MongoDB.",
+    skills: ["React", "Node.js", "Express", "MongoDB", "JavaScript", "REST APIs", "Tailwind CSS", "Docker"],
     education: [
       {
-        institution: "University of CSE",
+        institution: "BRAC University",
+        degree: "B.Sc. in Computer Science and Engineering",
+        startDate: "2022",
+        endDate: "2026"
+      }
+    ],
+    experience: [
+      {
+        company: "Academic and Research Tracker",
+        position: "Lead Full Stack Developer",
+        startDate: "2025",
+        endDate: "Present",
+        description: "Architected a full-stack MERN portal supporting 10+ academic and career modules with JWT authentication and ATS CV analysis."
+      }
+    ]
+  },
+  {
+    _id: "mock-res-2",
+    fullName: "Alice Rahman",
+    email: "alice.rahman@alumni.bracu.ac.bd",
+    phone: "+880 1812-987654",
+    linkedin: "https://linkedin.com/in/alice-rahman",
+    github: "https://github.com/alice-rahman",
+    location: "Dhaka, Bangladesh",
+    summary: "Dedicated Data Scientist skilled in Python, PyTorch, SQL, and NLP data analysis.",
+    skills: ["Python", "SQL", "PyTorch", "Pandas", "Machine Learning", "FastAPI"],
+    education: [
+      {
+        institution: "BRAC University",
         degree: "B.Sc. in Computer Science",
         startDate: "2021",
         endDate: "2025"
@@ -20,36 +51,11 @@ let mockResumes = [
     ],
     experience: [
       {
-        company: "Web Solutions Inc.",
-        position: "Frontend Intern",
-        startDate: "Jun 2024",
-        endDate: "Sep 2024",
-        description: "Built responsive user interfaces and optimized state management using React Redux."
-      }
-    ]
-  },
-  {
-    _id: "mock-res-2",
-    fullName: "Bob Analyst",
-    email: "bob.analyst@example.com",
-    phone: "+1 555-0234",
-    summary: "Dedicated Data Analyst skilled in Python, SQL, and data visualization.",
-    skills: ["Python", "SQL", "Tableau", "Pandas", "Machine Learning"],
-    education: [
-      {
-        institution: "Data Science Institute",
-        degree: "M.Sc. in Data Analytics",
-        startDate: "2022",
-        endDate: "2024"
-      }
-    ],
-    experience: [
-      {
-        company: "Insight Corp",
-        position: "Data Assistant",
-        startDate: "Mar 2023",
-        endDate: "Dec 2023",
-        description: "Analyzed consumer behavior datasets and built business intelligence dashboards."
+        company: "AI Research Lab",
+        position: "Undergraduate Research Assistant",
+        startDate: "Jan 2024",
+        endDate: "Dec 2024",
+        description: "Conducted experiments on Low-Resource Bengali NLP and Transformer fine-tuning."
       }
     ]
   }
@@ -65,7 +71,11 @@ export const getResumes = async (req, res) => {
     if (!isConnected()) {
       return res.status(200).json(mockResumes);
     }
-    const resumes = await Resume.find({});
+    let resumes = await Resume.find({});
+    if (resumes.length === 0) {
+      await Resume.insertMany(mockResumes.map(({ _id, ...rest }) => rest));
+      resumes = await Resume.find({});
+    }
     res.status(200).json(resumes);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -98,18 +108,25 @@ export const getResumeById = async (req, res) => {
 // @access  Public
 export const createResume = async (req, res) => {
   try {
-    const { fullName, email, phone, summary, skills, education, experience } = req.body;
-    
+    const { fullName, email, phone, linkedin, github, location, summary, skills, education, experience } = req.body;
+
+    if (!fullName || !email || !phone) {
+      return res.status(400).json({ message: 'Please provide required personal information' });
+    }
+
     if (!isConnected()) {
       const newResume = {
         _id: `mock-res-${Date.now()}`,
         fullName,
         email,
         phone,
-        summary,
-        skills,
-        education,
-        experience,
+        linkedin: linkedin || '',
+        github: github || '',
+        location: location || '',
+        summary: summary || '',
+        skills: Array.isArray(skills) ? skills : [],
+        education: Array.isArray(education) ? education : [],
+        experience: Array.isArray(experience) ? experience : [],
         createdAt: new Date(),
         updatedAt: new Date()
       };
@@ -121,11 +138,15 @@ export const createResume = async (req, res) => {
       fullName,
       email,
       phone,
-      summary,
-      skills,
-      education,
-      experience,
+      linkedin: linkedin || '',
+      github: github || '',
+      location: location || '',
+      summary: summary || '',
+      skills: Array.isArray(skills) ? skills : [],
+      education: Array.isArray(education) ? education : [],
+      experience: Array.isArray(experience) ? experience : []
     });
+
     const createdResume = await resume.save();
     res.status(201).json(createdResume);
   } catch (error) {
@@ -138,42 +159,23 @@ export const createResume = async (req, res) => {
 // @access  Public
 export const updateResume = async (req, res) => {
   try {
-    const { fullName, email, phone, summary, skills, education, experience } = req.body;
-    
     if (!isConnected()) {
-      const idx = mockResumes.findIndex(r => r._id === req.params.id);
-      if (idx !== -1) {
-        mockResumes[idx] = {
-          ...mockResumes[idx],
-          fullName: fullName || mockResumes[idx].fullName,
-          email: email || mockResumes[idx].email,
-          phone: phone || mockResumes[idx].phone,
-          summary: summary || mockResumes[idx].summary,
-          skills: skills || mockResumes[idx].skills,
-          education: education || mockResumes[idx].education,
-          experience: experience || mockResumes[idx].experience,
-          updatedAt: new Date()
-        };
-        return res.status(200).json(mockResumes[idx]);
+      const index = mockResumes.findIndex(r => r._id === req.params.id);
+      if (index !== -1) {
+        mockResumes[index] = { ...mockResumes[index], ...req.body, updatedAt: new Date() };
+        return res.status(200).json(mockResumes[index]);
       }
       return res.status(404).json({ message: 'Resume not found (mock)' });
     }
 
     const resume = await Resume.findById(req.params.id);
-    if (resume) {
-      resume.fullName = fullName || resume.fullName;
-      resume.email = email || resume.email;
-      resume.phone = phone || resume.phone;
-      resume.summary = summary || resume.summary;
-      resume.skills = skills || resume.skills;
-      resume.education = education || resume.education;
-      resume.experience = experience || resume.experience;
-
-      const updatedResume = await resume.save();
-      res.status(200).json(updatedResume);
-    } else {
-      res.status(404).json({ message: 'Resume not found' });
+    if (!resume) {
+      return res.status(404).json({ message: 'Resume not found' });
     }
+
+    Object.assign(resume, req.body);
+    const updated = await resume.save();
+    res.status(200).json(updated);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -186,15 +188,27 @@ export const deleteResume = async (req, res) => {
   try {
     if (!isConnected()) {
       mockResumes = mockResumes.filter(r => r._id !== req.params.id);
-      return res.status(200).json({ message: 'Resume removed successfully (mock)' });
+      return res.status(200).json({ message: 'Resume removed' });
     }
-    const resume = await Resume.findById(req.params.id);
-    if (resume) {
-      await Resume.deleteOne({ _id: req.params.id });
-      res.status(200).json({ message: 'Resume removed successfully' });
-    } else {
-      res.status(404).json({ message: 'Resume not found' });
+    await Resume.findByIdAndDelete(req.params.id);
+    res.status(200).json({ message: 'Resume removed' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Seed mock resumes into database
+// @route   POST /api/resumes/seed
+// @access  Public
+export const seedResumes = async (req, res) => {
+  try {
+    if (!isConnected()) {
+      return res.status(200).json({ message: 'Using in-memory mock resume data.' });
     }
+    await Resume.deleteMany({});
+    const docs = mockResumes.map(({ _id, ...rest }) => rest);
+    await Resume.insertMany(docs);
+    res.status(201).json({ message: 'Resumes seeded successfully into MongoDB Atlas!' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

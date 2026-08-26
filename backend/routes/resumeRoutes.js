@@ -5,9 +5,13 @@ import {
   createResume,
   updateResume,
   deleteResume,
+  seedResumes,
 } from '../controllers/resumeController.js';
 
 const router = express.Router();
+
+router.route('/seed')
+  .post(seedResumes);
 
 router.route('/')
   .get(getResumes)
