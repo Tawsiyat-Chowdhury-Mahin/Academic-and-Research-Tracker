@@ -8,9 +8,9 @@ const interviewSchema = mongoose.Schema(
     questionsAndAnswers: [
       {
         question: { type: String, required: true },
-        userAnswer: { type: String, required: true },
-        feedback: { type: String, required: true },
-        score: { type: Number, required: true },
+        userAnswer: { type: String, default: '(No response provided)' },
+        feedback: { type: String, default: 'Evaluation completed.' },
+        score: { type: Number, default: 0 },
       }
     ],
   },

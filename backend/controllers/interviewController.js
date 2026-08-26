@@ -145,21 +145,6 @@ let mockInterviews = [
       }
     ],
     createdAt: new Date(Date.now() - 1800000)
-  },
-  {
-    _id: "mock-int-2",
-    role: "Database",
-    difficulty: "Easy",
-    overallScore: 92,
-    questionsAndAnswers: [
-      {
-        question: "Explain Database Normalization (1NF, 2NF, 3NF, BCNF) and why we eliminate data redundancy and insertion/deletion anomalies.",
-        userAnswer: "Normalization decomposes relations to remove transitive and partial functional dependencies, preventing update, insertion, and deletion anomalies.",
-        feedback: "Superb answer covering 1NF to BCNF and anomaly prevention.",
-        score: 95
-      }
-    ],
-    createdAt: new Date(Date.now() - 3600000)
   }
 ];
 
@@ -169,7 +154,7 @@ const isConnected = () => mongoose.connection.readyState === 1;
 // @route   POST /api/interviews/questions
 // @access  Public
 export const getQuestions = (req, res) => {
-  const { role, difficulty } = req.body;
+  const { role, difficulty } = req.body || {};
   
   const roleQuestions = questionPool[role] || questionPool["Architecture"] || questionPool["Frontend"];
   const finalQuestions = roleQuestions[difficulty] || roleQuestions["Medium"] || roleQuestions["Easy"];
@@ -182,27 +167,33 @@ export const getQuestions = (req, res) => {
 // @access  Public
 export const submitInterview = async (req, res) => {
   try {
-    const { role, difficulty, answers } = req.body;
+    const { role, difficulty, answers } = req.body || {};
     
-    if (!role || !difficulty || !answers) {
-      return res.status(400).json({ message: 'Missing required interview parameters' });
-    }
+    const targetRole = role || "Architecture";
+    const targetDifficulty = difficulty || "Medium";
 
-    const roleQuestions = questionPool[role] || questionPool["Architecture"] || questionPool["Frontend"];
-    const pool = roleQuestions[difficulty] || roleQuestions["Medium"];
+    const roleQuestions = questionPool[targetRole] || questionPool["Architecture"] || questionPool["Frontend"];
+    const pool = roleQuestions[targetDifficulty] || roleQuestions["Medium"] || roleQuestions["Easy"];
 
     let totalScore = 0;
     const questionsAndAnswers = [];
 
     for (const q of pool) {
-      const userAnswer = answers[q.id] || "";
-      const lowerAnswer = userAnswer.toLowerCase();
+      let rawAnswer = "";
       
+      if (Array.isArray(answers)) {
+        const found = answers.find(a => a.questionId === q.id || a.question === q.question);
+        rawAnswer = found ? (found.userAnswer || "") : "";
+      } else if (typeof answers === 'object' && answers !== null) {
+        rawAnswer = answers[q.id] || answers[q.question] || "";
+      }
+
+      const lowerAnswer = (rawAnswer || "").toLowerCase().trim();
       const matched = q.keywords.filter(kw => lowerAnswer.includes(kw.toLowerCase()));
-      const percentage = Math.round((matched.length / q.keywords.length) * 100);
+      const percentage = q.keywords.length > 0 ? Math.round((matched.length / q.keywords.length) * 100) : 100;
       
       let itemScore = Math.min(100, Math.max(30, percentage * 2));
-      if (!userAnswer.trim()) itemScore = 0;
+      if (!lowerAnswer) itemScore = 0;
 
       let feedback = "";
       if (itemScore >= 80) {
@@ -219,7 +210,7 @@ export const submitInterview = async (req, res) => {
       totalScore += itemScore;
       questionsAndAnswers.push({
         question: q.question,
-        userAnswer,
+        userAnswer: rawAnswer.trim() ? rawAnswer : "(No response recorded)",
         feedback,
         score: itemScore
       });
@@ -230,8 +221,8 @@ export const submitInterview = async (req, res) => {
     if (!isConnected()) {
       const newInterview = {
         _id: `mock-int-${Date.now()}`,
-        role,
-        difficulty,
+        role: targetRole,
+        difficulty: targetDifficulty,
         overallScore,
         questionsAndAnswers,
         createdAt: new Date()
@@ -241,8 +232,8 @@ export const submitInterview = async (req, res) => {
     }
 
     const interviewRecord = new Interview({
-      role,
-      difficulty,
+      role: targetRole,
+      difficulty: targetDifficulty,
       overallScore,
       questionsAndAnswers
     });
@@ -250,7 +241,8 @@ export const submitInterview = async (req, res) => {
     const saved = await interviewRecord.save();
     res.status(201).json(saved);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    console.error("Submit interview error:", error);
+    res.status(500).json({ message: error.message || "Evaluation processing failed" });
   }
 };
 
