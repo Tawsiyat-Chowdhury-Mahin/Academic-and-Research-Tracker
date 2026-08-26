@@ -1,208 +1,202 @@
 import Alumni from '../models/Alumni.js';
 import mongoose from 'mongoose';
 
-// Authentic BRAC University & Preconnect Alumni / Faculty dataset
+// Authentic BRAC University Alumni & Faculty Profiles from LinkedIn
 let mockAlumni = [
   {
-    _id: "alum-nip",
+    _id: "bracu-alumni-1",
     name: "Nazmul Islam Pranto",
+    email: "nazmul.islam@bracu.ac.bd",
+    graduationYear: 2023,
+    degree: "B.Sc. in Computer Science and Engineering",
+    company: "BRAC University",
+    role: "Lecturer & AI Researcher",
+    skills: ["Artificial Intelligence", "Computer Vision", "Software Engineering", "Python", "Machine Learning"],
+    linkedin: "https://www.linkedin.com/in/nazmul-islam-pranto/",
+    bio: "BRAC University CSE alumnus and academician. Research focus in Artificial Intelligence, Computer Vision, and Software Engineering. Open for mentoring undergraduate researchers and project consultations."
+  },
+  {
+    _id: "bracu-alumni-2",
+    name: "Md. Tawhid Anwar",
+    email: "tawhid.anwar@bracu.ac.bd",
+    graduationYear: 2020,
+    degree: "B.Sc. in Computer Science and Engineering",
+    company: "BRAC University",
+    role: "Senior Lecturer & Chancellor's Gold Medalist",
+    skills: ["Data Structures", "Algorithms", "Advanced Computing", "Research Methodology", "Java"],
+    linkedin: "https://www.linkedin.com/in/md-tawhid-anwar/",
+    bio: "Senior Lecturer in CSE at BRAC University and Chancellor's Gold Medal recipient. Awarded University Teaching Excellence. Mentoring students in advanced computing, research papers, and academic excellence."
+  },
+  {
+    _id: "bracu-alumni-3",
+    name: "Partha Bhoumik",
+    email: "partha.bhoumik@bracu.ac.bd",
     graduationYear: 2022,
     degree: "B.Sc. in Computer Science and Engineering",
-    company: "BRAC University (ex-BJIT Ltd)",
-    role: "Lecturer & Cloud/DevOps Specialist",
-    skills: ["DevOps", "AWS", "Kubernetes", "Docker", "CI/CD", "Terraform", "Ansible", "Python", "Java", "Django", "MERN Stack"],
-    email: "nazmul.islam@bracu.ac.bd",
-    linkedin: "https://www.linkedin.com/in/nazmul-islam-pranto/",
-    bio: "Lecturer in CSE at BRAC University (ex-DevOps & Cloud Engineer at BJIT Ltd). Seeking Masters/PhD opportunities. Experienced in AWS, Azure, CI/CD pipelines (Jenkins, GitLab), Kubernetes, Docker, Terraform, Prometheus/Grafana, Django, Java Spring Boot, and MERN stack systems."
-  },
-  {
-    _id: "alum-mta",
-    name: "Md. Tawhid Anwar",
-    graduationYear: 2017,
-    degree: "B.Sc. in Computer Science & Engineering",
     company: "BRAC University",
-    role: "Senior Lecturer & Course Coordinator",
-    skills: ["Python", "Java", "Machine Learning", "Explainable AI", "Data Science", "OOP", "Curriculum Design", "Mentoring"],
-    email: "tawhid.anwar@bracu.ac.bd",
-    linkedin: "https://www.linkedin.com/in/md-tawhid-anwar/",
-    bio: "Senior Lecturer in CSE at BRAC University with 7+ years of teaching experience. Chancellor’s Gold Medalist & Valedictorian. Published Q1 ML/XAI researcher (6 publications), Course Coordinator (CSE110 & CSE111), and Creator of 'Learn with Tawhid' programming tutorials."
+    role: "Lecturer",
+    skills: ["Software Architecture", "OOP", "Algorithm Design", "C++", "Competitive Programming"],
+    linkedin: "https://www.linkedin.com/in/partha-bhoumik/",
+    bio: "BRACU CSE alumnus and Lecturer. Passionate about Software Architecture, Object-Oriented Programming, and algorithmic problem-solving. Mentoring student developers."
   },
   {
-    _id: "alum-jmr",
-    name: "Jumana Rahman",
-    graduationYear: 2019,
-    degree: "B.Sc. in Computer Science & Engineering",
-    company: "BRAC University Department of CSE",
-    role: "Lecturer & Former Student Tutor",
-    skills: ["Java", "Data Structures", "Algorithms", "Curriculum Development", "Academic Advising"],
-    email: "jumana.rahman@bracu.ac.bd",
-    linkedin: "https://linkedin.com/in/jumana-rahman-bracu",
-    bio: "BRACU CSE Alumna & Lecturer. Former Student Tutor for introductory programming. Passionate about CS education, algorithmic thinking, and advising undergraduate researchers."
-  },
-  {
-    _id: "alum-msr",
-    name: "Md. Shahriar Rahman",
+    _id: "bracu-alumni-4",
+    name: "Umme Jannat Taposhi",
+    email: "umme.jannat@bracu.ac.bd",
     graduationYear: 2021,
-    degree: "B.Sc. in Computer Science & Engineering",
-    company: "BRAC University (ex-Accelx Inc)",
-    role: "Lecturer & AI Software Engineer",
-    skills: ["Python", "FastAPI", "TensorFlow", "Computer Vision", "Together Initiatives", "System Design"],
-    email: "shahriar.rahman@bracu.ac.bd",
-    linkedin: "https://linkedin.com/in/shahriar-rahman-ai",
-    bio: "Lecturer in CSE at BRAC University. Previously worked as AI Software Engineer at Accelx Inc and Junior Software Engineer at Together Initiatives Ltd. Researches practical applied machine learning."
+    degree: "B.Sc. & M.Sc. in Computer Science and Engineering",
+    company: "BRAC University",
+    role: "Lecturer & Postgraduate Gold Medalist",
+    skills: ["Intelligent Systems", "Data Structures", "Neural Networks", "NLP", "Python"],
+    linkedin: "https://www.linkedin.com/in/umme-jannat-taposhi-a977aa247/",
+    bio: "B.Sc. & M.Sc. in CSE from BRAC University, Postgraduate Chancellor's Gold Medal recipient. Lecturer specializing in Intelligent Systems, Data Structures, and thesis mentorship."
   },
   {
-    _id: "alum-an",
-    name: "Arian Nuhan",
-    graduationYear: 2022,
-    degree: "B.Sc. in Computer Science & Engineering",
-    company: "Brain Station 23",
-    role: "Senior Software Engineer (FinTech Unit)",
-    skills: ["React", "Node.js", "PostgreSQL", "Docker", "Microservices", "REST APIs"],
-    email: "arian.nuhan@alumni.bracu.ac.bd",
-    linkedin: "https://linkedin.com/in/arian-nuhan",
-    bio: "BRACU Alumnus working at Brain Station 23 on enterprise banking and fintech solutions. Happy to assist junior students with portfolio reviews and coding interview prep."
-  },
-  {
-    _id: "alum-taz",
-    name: "Tanjeem Azwad Zaman",
+    _id: "bracu-alumni-5",
+    name: "Tasnim Ahsan Prome",
+    email: "tasnim.prome@bracu.ac.bd",
     graduationYear: 2023,
-    degree: "B.Sc. in Computer Science & Engineering",
-    company: "Samsung R&D Institute Bangladesh (SRBD)",
-    role: "Associate Machine Learning Engineer",
-    skills: ["C++", "Python", "PyTorch", "On-Device AI", "CUDA", "Embedded Systems"],
-    email: "tanjeem.azwad@alumni.bracu.ac.bd",
-    linkedin: "https://linkedin.com/in/tanjeem-azwad",
-    bio: "BRAC University CSE graduate currently doing on-device AI and computer vision research at Samsung R&D Institute Bangladesh. Open for research collaborations and mock interviews."
+    degree: "B.Sc. in Computer Science and Engineering",
+    company: "BRAC University",
+    role: "Lecturer & ML Researcher",
+    skills: ["Deep Learning", "Image Processing", "Machine Learning", "Computer Vision", "PyTorch"],
+    linkedin: "https://www.linkedin.com/in/tasnim-ahsan-prome/",
+    bio: "BRACU CSE alumna and Lecturer. Active researcher in Machine Learning, Deep Learning, Image Processing, and Computer Vision. Dedicated to empowering student research and academic progression."
   }
 ];
 
 const isConnected = () => mongoose.connection.readyState === 1;
 
-// @desc    Get all alumni with filtering
+// @desc    Get all alumni with optional query filters
 // @route   GET /api/alumni
 // @access  Public
 export const getAlumni = async (req, res) => {
   try {
-    const { keyword, company, graduationYear, degree } = req.query;
+    const { degree, keyword, company, graduationYear } = req.query;
 
     if (!isConnected()) {
       let filtered = [...mockAlumni];
-      if (keyword) {
-        const kw = keyword.toLowerCase();
-        filtered = filtered.filter(a => 
-          a.name.toLowerCase().includes(kw) ||
-          a.role.toLowerCase().includes(kw) ||
-          a.skills.some(s => s.toLowerCase().includes(kw))
-        );
+      if (degree && degree !== 'All') {
+        filtered = filtered.filter(a => a.degree.toLowerCase().includes(degree.toLowerCase()));
       }
       if (company) {
         filtered = filtered.filter(a => a.company.toLowerCase().includes(company.toLowerCase()));
       }
       if (graduationYear) {
-        filtered = filtered.filter(a => a.graduationYear === Number(graduationYear));
+        filtered = filtered.filter(a => a.graduationYear.toString() === graduationYear.toString());
       }
-      if (degree && degree !== 'All') {
-        filtered = filtered.filter(a => a.degree.toLowerCase().includes(degree.toLowerCase()));
+      if (keyword) {
+        const s = keyword.toLowerCase();
+        filtered = filtered.filter(a => 
+          a.name.toLowerCase().includes(s) ||
+          a.role.toLowerCase().includes(s) ||
+          a.company.toLowerCase().includes(s) ||
+          a.bio.toLowerCase().includes(s) ||
+          (a.skills && a.skills.some(sk => sk.toLowerCase().includes(s)))
+        );
       }
       return res.status(200).json(filtered);
     }
 
     const query = {};
-    if (keyword) {
-      query.$or = [
-        { name: { $regex: keyword, $options: 'i' } },
-        { role: { $regex: keyword, $options: 'i' } },
-        { skills: { $in: [new RegExp(keyword, 'i')] } }
-      ];
+    if (degree && degree !== 'All') {
+      query.degree = new RegExp(degree, 'i');
     }
     if (company) {
-      query.company = { $regex: company, $options: 'i' };
+      query.company = new RegExp(company, 'i');
     }
     if (graduationYear) {
       query.graduationYear = Number(graduationYear);
     }
-    if (degree && degree !== 'All') {
-      query.degree = { $regex: degree, $options: 'i' };
+    if (keyword) {
+      query.$or = [
+        { name: new RegExp(keyword, 'i') },
+        { role: new RegExp(keyword, 'i') },
+        { company: new RegExp(keyword, 'i') },
+        { bio: new RegExp(keyword, 'i') },
+        { skills: { $in: [new RegExp(keyword, 'i')] } }
+      ];
     }
 
-    let alumniList = await Alumni.find(query).sort({ graduationYear: -1 });
-    if (alumniList.length === 0 && !keyword && !company && !graduationYear && (!degree || degree === 'All')) {
+    let alumni = await Alumni.find(query).sort({ graduationYear: -1 });
+    if (alumni.length === 0 && !degree && !keyword && !company && !graduationYear) {
       await Alumni.deleteMany({});
-      alumniList = await Alumni.insertMany(mockAlumni.map(({ _id, ...rest }) => rest));
+      alumni = await Alumni.insertMany(mockAlumni.map(({ _id, ...rest }) => rest));
     }
-    res.status(200).json(alumniList);
+    res.status(200).json(alumni);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// @desc    Get alumni profile by ID
+// @desc    Get alumni by ID
 // @route   GET /api/alumni/:id
 // @access  Public
 export const getAlumnusById = async (req, res) => {
   try {
     if (!isConnected()) {
-      const alum = mockAlumni.find(a => a._id === req.params.id);
-      if (alum) return res.status(200).json(alum);
-      return res.status(404).json({ message: 'Alumni not found (mock)' });
+      const alumnus = mockAlumni.find(a => a._id === req.params.id);
+      if (alumnus) return res.status(200).json(alumnus);
+      return res.status(404).json({ message: 'Alumnus not found (mock)' });
     }
 
-    const alum = await Alumni.findById(req.params.id);
-    if (alum) {
-      res.status(200).json(alum);
+    const alumnus = await Alumni.findById(req.params.id);
+    if (alumnus) {
+      res.status(200).json(alumnus);
     } else {
-      res.status(404).json({ message: 'Alumni not found' });
+      res.status(404).json({ message: 'Alumnus not found' });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-// @desc    Register new alumni profile
+// @desc    Create new alumni profile
 // @route   POST /api/alumni
 // @access  Public
 export const createAlumni = async (req, res) => {
   try {
-    const { name, graduationYear, degree, company, role, skills, email, linkedin, bio } = req.body;
+    const { name, email, graduationYear, degree, role, company, skills, linkedin, bio } = req.body;
 
-    if (!name || !graduationYear || !degree || !company || !role || !email) {
+    if (!name || !email || !graduationYear || !degree || !role || !company) {
       return res.status(400).json({ message: 'Please provide all required fields' });
     }
 
+    const parsedSkills = Array.isArray(skills) ? skills : (skills || '').split(',').map(s => s.trim()).filter(Boolean);
+
     if (!isConnected()) {
-      const newAlum = {
-        _id: `mock-alum-${Date.now()}`,
+      const newAlumnus = {
+        _id: `mock-alumni-${Date.now()}`,
         name,
+        email,
         graduationYear: Number(graduationYear),
         degree,
-        company,
         role,
-        skills: Array.isArray(skills) ? skills : (skills || '').split(',').map(s => s.trim()),
-        email,
-        linkedin: linkedin || '',
-        bio: bio || '',
+        company,
+        skills: parsedSkills,
+        linkedin: linkedin || "",
+        bio: bio || "",
         createdAt: new Date(),
         updatedAt: new Date()
       };
-      mockAlumni.unshift(newAlum);
-      return res.status(201).json(newAlum);
+      mockAlumni.unshift(newAlumnus);
+      return res.status(201).json(newAlumnus);
     }
 
-    const alumni = new Alumni({
+    const alumnus = new Alumni({
       name,
-      graduationYear,
-      degree,
-      company,
-      role,
-      skills: Array.isArray(skills) ? skills : (skills || '').split(',').map(s => s.trim()),
       email,
+      graduationYear: Number(graduationYear),
+      degree,
+      role,
+      company,
+      skills: parsedSkills,
       linkedin,
       bio
     });
 
-    const createdAlumni = await alumni.save();
-    res.status(201).json(createdAlumni);
+    const createdAlumnus = await alumnus.save();
+    res.status(201).json(createdAlumnus);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -214,14 +208,21 @@ export const createAlumni = async (req, res) => {
 export const updateAlumni = async (req, res) => {
   try {
     if (!isConnected()) {
-      const idx = mockAlumni.findIndex(a => a._id === req.params.id);
-      if (idx !== -1) {
-        mockAlumni[idx] = { ...mockAlumni[idx], ...req.body, updatedAt: new Date() };
-        return res.status(200).json(mockAlumni[idx]);
+      const index = mockAlumni.findIndex(a => a._id === req.params.id);
+      if (index !== -1) {
+        mockAlumni[index] = { ...mockAlumni[index], ...req.body, updatedAt: new Date() };
+        return res.status(200).json(mockAlumni[index]);
       }
-      return res.status(404).json({ message: 'Alumni not found' });
+      return res.status(404).json({ message: 'Alumnus not found (mock)' });
     }
-    const updated = await Alumni.findByIdAndUpdate(req.params.id, req.body, { new: true });
+
+    const alumnus = await Alumni.findById(req.params.id);
+    if (!alumnus) {
+      return res.status(404).json({ message: 'Alumnus not found' });
+    }
+
+    Object.assign(alumnus, req.body);
+    const updated = await alumnus.save();
     res.status(200).json(updated);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -244,7 +245,7 @@ export const deleteAlumni = async (req, res) => {
   }
 };
 
-// @desc    Seed alumni collection with BRACU faculty/alumni
+// @desc    Seed mock alumni into database
 // @route   POST /api/alumni/seed
 // @access  Public
 export const seedAlumni = async (req, res) => {
@@ -257,7 +258,7 @@ export const seedAlumni = async (req, res) => {
     const docs = mockAlumni.map(({ _id, ...rest }) => rest);
     await Alumni.insertMany(docs);
 
-    res.status(201).json({ message: 'BRACU Alumni & Faculty seeded successfully!' });
+    res.status(201).json({ message: 'BRACU Alumni seeded successfully into MongoDB Atlas!' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
