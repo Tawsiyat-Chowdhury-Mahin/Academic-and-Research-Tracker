@@ -375,6 +375,27 @@ export const getInterviews = async (req, res) => {
   }
 };
 
+// @desc    Get interview result by ID
+// @route   GET /api/interviews/:id
+// @access  Public
+export const getInterviewById = async (req, res) => {
+  try {
+    if (!isConnected()) {
+      const item = mockInterviews.find(i => i._id === req.params.id);
+      if (item) return res.status(200).json(item);
+      return res.status(404).json({ message: 'Interview not found (mock)' });
+    }
+    const interview = await Interview.findById(req.params.id);
+    if (interview) {
+      res.status(200).json(interview);
+    } else {
+      res.status(404).json({ message: 'Interview not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 // @desc    Delete interview result
 // @route   DELETE /api/interviews/:id
 // @access  Public
