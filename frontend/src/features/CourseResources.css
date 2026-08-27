@@ -1,0 +1,217 @@
+.page-container {
+  padding: 40px;
+  max-width: 1200px;
+}
+
+
+.page-header {
+  margin-bottom: 30px;
+}
+
+
+.page-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 36px;
+  color: #172554;
+  margin-bottom: 8px;
+}
+
+
+.page-header p {
+  color: #64748b;
+  font-size: 16px;
+}
+
+
+
+.resource-form-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+
+.resource-form-card h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+
+
+.form-grid input,
+.form-grid select,
+textarea {
+
+  width: 100%;
+  padding: 13px;
+
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+
+  font-size: 15px;
+}
+
+
+
+textarea {
+  margin-top: 18px;
+  min-height: 100px;
+}
+
+
+
+button {
+
+  margin-top: 20px;
+  padding: 13px 28px;
+
+  border: none;
+  border-radius: 12px;
+
+  background: #2563eb;
+  color: white;
+
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+
+button:hover {
+
+  background:#1d4ed8;
+
+}
+
+
+
+.section-title {
+
+  margin-top:40px;
+  margin-bottom:20px;
+
+}
+
+
+
+.resource-grid {
+
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px;
+
+}
+
+
+
+.resource-card {
+
+  background:white;
+
+  border:1px solid #e2e8f0;
+
+  border-radius:18px;
+
+  padding:22px;
+
+  box-shadow:0 8px 20px rgba(0,0,0,0.05);
+
+}
+
+
+
+.icon-box {
+
+  width:50px;
+  height:50px;
+
+  border-radius:14px;
+
+  background:#dbeafe;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#2563eb;
+
+}
+
+
+
+.resource-card h3 {
+
+  margin-top:18px;
+  color:#1e3a8a;
+
+}
+
+
+.course-name {
+
+  color:#64748b;
+
+}
+
+
+.resource-card span {
+
+  display:inline-block;
+
+  margin-top:10px;
+
+  padding:6px 12px;
+
+  border-radius:20px;
+
+  background:#eff6ff;
+
+  color:#2563eb;
+
+}
+
+
+
+.resource-card a {
+
+  display:flex;
+
+  align-items:center;
+
+  gap:6px;
+
+  margin-top:18px;
+
+  color:#2563eb;
+
+  text-decoration:none;
+
+}
+
+
+
+@media(max-width:900px){
+
+.form-grid{
+grid-template-columns:1fr;
+}
+
+.resource-grid{
+grid-template-columns:1fr;
+}
+
+}
