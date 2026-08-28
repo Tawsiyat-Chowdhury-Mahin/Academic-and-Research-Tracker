@@ -35,6 +35,7 @@ import FacultyReviews from './features/FacultyReviews';
 import ClassRoutine from './features/ClassRoutine';
 import CoursePlanner from './features/CoursePlanner';
 import CgpaCalculator from './features/CgpaCalculator';
+import PollSurvey from "./features/PollSurvey";
 
 const DashboardHome = () => {
   const { user } = useAuth();
@@ -538,6 +539,7 @@ const AppRoutes = () => {
           <Route path="/interview-simulator" element={<InterviewSimulator />} />
           <Route path="/alumni-networking" element={<AlumniNetworking />} />
           <Route path="/profile" element={<AuthPage />} />
+          <Route path="/poll-survey" element={<PollSurvey />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
