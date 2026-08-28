@@ -1,0 +1,308 @@
+.page-container {
+
+  padding: 30px;
+
+}
+
+
+/* Header */
+
+.page-header h1 {
+
+  font-size: 36px;
+  margin-bottom: 8px;
+  color: #0f172a;
+
+}
+
+
+.page-header p {
+
+  color: #64748b;
+  font-size: 18px;
+
+}
+
+
+
+
+/* Create Card Form */
+
+.resource-form-card {
+
+  margin-top: 30px;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+
+}
+
+
+
+.resource-form-card h2 {
+
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #0f172a;
+
+}
+
+
+
+.resource-form-card form {
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+}
+
+
+
+.resource-form-card input,
+.resource-form-card textarea {
+
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  font-size: 16px;
+  outline: none;
+
+}
+
+
+
+.resource-form-card input:focus,
+.resource-form-card textarea:focus {
+
+  border-color: #2563eb;
+
+}
+
+
+
+.resource-form-card textarea {
+
+  min-height: 120px;
+  resize: vertical;
+
+}
+
+
+
+.resource-form-card button {
+
+  padding: 14px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+
+}
+
+
+
+.resource-form-card button:hover {
+
+  background: #1d4ed8;
+
+}
+
+
+
+
+
+/* Section Title */
+
+.section-title {
+
+  margin-top: 35px;
+  font-size: 32px;
+  color: #0f172a;
+
+}
+
+
+
+
+
+/* Card Grid */
+
+.resource-grid {
+
+  margin-top: 20px;
+
+  display: grid;
+
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  );
+
+  gap: 25px;
+
+}
+
+
+
+
+
+
+
+/* Flash Card */
+
+.flash-card {
+
+  height: 260px;
+  perspective: 1000px;
+  cursor: pointer;
+
+}
+
+
+
+.flash-card-inner {
+
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+
+  transform-style: preserve-3d;
+
+  transition: transform 0.6s;
+
+}
+
+
+
+.flash-card:hover .flash-card-inner {
+
+  transform: rotateY(180deg);
+
+}
+
+
+
+
+
+/* Front + Back */
+
+.flash-card-front,
+.flash-card-back {
+
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 25px;
+
+  border-radius: 20px;
+
+  background: white;
+
+  border: 1px solid #e2e8f0;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+
+  backface-visibility: hidden;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+}
+
+
+
+
+
+/* Question Side */
+
+.flash-card-front h3 {
+
+  font-size: 24px;
+  color: #0f172a;
+  margin-bottom: 20px;
+
+}
+
+
+
+.flash-card-front span {
+
+  color: #2563eb;
+  font-weight: 600;
+
+}
+
+
+
+.flash-card-front small {
+
+  margin-top: 25px;
+  color: #94a3b8;
+
+}
+
+
+
+
+
+/* Answer Side */
+
+.flash-card-back {
+
+  transform: rotateY(180deg);
+
+}
+
+
+
+.flash-card-back p {
+
+  font-size: 18px;
+  color: #334155;
+  line-height: 1.6;
+
+}
+
+
+
+
+/* Delete Button */
+
+.flash-card-back button {
+
+  margin-top: 25px;
+
+  padding: 10px 18px;
+
+  background: #ef4444;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  font-size: 15px;
+
+}
+
+
+
+.flash-card-back button:hover {
+
+  background: #dc2626;
+
+}

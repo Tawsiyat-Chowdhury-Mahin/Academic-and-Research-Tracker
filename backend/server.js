@@ -13,6 +13,7 @@ import alumniRoutes from './routes/alumniRoutes.js';
 import studyPlanRoutes from './routes/studyPlanRoutes.js';
 import cgpaRoutes from './routes/cgpaRoutes.js';
 import coursePlanRoutes from './routes/coursePlanRoutes.js';
+import flashCardRoutes from "./routes/flashCardRoutes.js";
 import classRoutineRoutes from './routes/classRoutineRoutes.js';
 import facultyReviewRoutes from './routes/facultyReviewRoutes.js';
 
@@ -38,6 +39,8 @@ app.use('/api/cgpa', cgpaRoutes);
 app.use('/api/course-plans', coursePlanRoutes);
 app.use('/api/class-routines', classRoutineRoutes);
 app.use('/api/faculty-reviews', facultyReviewRoutes);
+app.use('/api/faculty-reviews', facultyReviewRoutes);
+app.use('/api/flash-cards', flashCardRoutes);
 
 // Health check endpoint
 app.get('/', (req, res) => {
