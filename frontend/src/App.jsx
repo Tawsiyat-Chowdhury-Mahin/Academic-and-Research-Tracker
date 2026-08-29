@@ -20,7 +20,10 @@ import {
   Star,
   CalendarDays,
   BookMarked,
-  Calculator
+  Calculator,
+  Layers,
+  BookOpen,
+  Vote
 } from 'lucide-react';
 
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -36,6 +39,8 @@ import ClassRoutine from './features/ClassRoutine';
 import CoursePlanner from './features/CoursePlanner';
 import CgpaCalculator from './features/CgpaCalculator';
 import FlashCardMaker from './features/FlashCardMaker';
+import CourseResources from './features/CourseResources';
+import PollSurvey from './features/PollSurvey';
 
 const DashboardHome = () => {
   const { user } = useAuth();
@@ -63,7 +68,7 @@ const DashboardHome = () => {
             Welcome, {user?.name ? user.name.split(' ')[0] : 'Student'}! 👋
           </h1>
           <p style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', maxWidth: '680px', lineHeight: 1.5 }}>
-            Explore your integrated research tracking, career preparation tools, and university networking features below.
+            Explore your integrated research tracking, career preparation tools, course resources, and university networking features below.
           </p>
         </div>
       </div>
@@ -72,12 +77,12 @@ const DashboardHome = () => {
       <div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
           <h2 style={{ fontSize: '1.35rem', fontWeight: 700 }}>Featured Modules</h2>
-          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>10 Core Features Active</span>
+          <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>13 Integrated Modules Active</span>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '22px' }}>
           
-          {/* Card 1: CGPA Calculator (NEW) */}
+          {/* Card 1: CGPA Calculator */}
           <Link to="/cgpa-calculator" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
@@ -111,7 +116,41 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 3: Class Routine & Academic Calendar */}
+          {/* Card 3: Course Resources */}
+          <Link to="/course-resources" className="card feature-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#f0fdf4', color: '#16a34a', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(22, 163, 74, 0.15)' }}>
+                <BookOpen size={24} />
+              </div>
+              <span className="badge badge-success">Notes & Slides</span>
+            </div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Course Resources</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
+              Access shared lecture notes, slides, previous question papers, and lab code links organized by course.
+            </p>
+            <div className="card-footer-link">
+              <span>Browse Resources</span> <ChevronRight size={16} />
+            </div>
+          </Link>
+
+          {/* Card 4: Flash Card Maker */}
+          <Link to="/flash-card-maker" className="card feature-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#faf5ff', color: '#9333ea', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(147, 51, 234, 0.15)' }}>
+                <Layers size={24} />
+              </div>
+              <span className="badge badge-primary">Active Recall</span>
+            </div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Flash Card Maker</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
+              Create interactive flipped flashcard decks for exam review, active recall, and quick key term revision.
+            </p>
+            <div className="card-footer-link">
+              <span>Practice Flashcards</span> <ChevronRight size={16} />
+            </div>
+          </Link>
+
+          {/* Card 5: Class Routine & Academic Calendar */}
           <Link to="/class-routine" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
@@ -128,7 +167,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 4: Study Planner */}
+          {/* Card 6: Study Planner */}
           <Link to="/study-planner" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
@@ -145,7 +184,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 5: Faculty Reviews */}
+          {/* Card 7: Faculty Reviews */}
           <Link to="/faculty-reviews" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#fffbeb', color: '#d97706', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(217, 119, 6, 0.15)' }}>
@@ -162,7 +201,24 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 6: Resume Builder */}
+          {/* Card 8: Polls & Surveys */}
+          <Link to="/poll-survey" className="card feature-card">
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#0284c7', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(2, 132, 199, 0.15)' }}>
+                <Vote size={24} />
+              </div>
+              <span className="badge badge-primary">Live Voting</span>
+            </div>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Polls & Surveys</h3>
+            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
+              Create student polls, vote on class decisions, and view real-time percentage results and community opinions.
+            </p>
+            <div className="card-footer-link">
+              <span>Vote in Polls</span> <ChevronRight size={16} />
+            </div>
+          </Link>
+
+          {/* Card 9: Resume Builder */}
           <Link to="/resume-builder" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
@@ -179,7 +235,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 7: CV Analyzer */}
+          {/* Card 10: CV Analyzer */}
           <Link to="/cv-analyzer" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#ecfdf5', color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(16, 185, 129, 0.15)' }}>
@@ -196,7 +252,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 8: Job Finder */}
+          {/* Card 11: Job Finder */}
           <Link to="/job-finder" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#fffbeb', color: '#f59e0b', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(245, 158, 11, 0.15)' }}>
@@ -213,7 +269,7 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 9: Alumni Networking */}
+          {/* Card 12: Alumni Networking */}
           <Link to="/alumni-networking" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#ecfdf5', color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(16, 185, 129, 0.15)' }}>
@@ -230,37 +286,20 @@ const DashboardHome = () => {
             </div>
           </Link>
 
-          {/* Card 10: Interview Simulator */}
+          {/* Card 13: Interview Simulator */}
           <Link to="/interview-simulator" className="card feature-card">
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
               <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#eff6ff', color: '#2563eb', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 8px rgba(37, 99, 235, 0.15)' }}>
                 <PlayCircle size={24} />
               </div>
-              <span className="badge badge-primary">Voice & Timer</span>
+              <span className="badge badge-primary">Model Answers</span>
             </div>
             <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>Interview Simulator</h3>
             <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
-              Practice technical interviews with automated Web Speech TTS audio read-aloud and a 60-second pressure countdown timer.
+              Practice technical interviews with automated 60-second pressure timers, scoring rubrics, and 100% benchmark model answers.
             </p>
             <div className="card-footer-link">
               <span>Start Simulator</span> <ChevronRight size={16} />
-            </div>
-          </Link>
-
-          {/* Card 11: Profile & Settings */}
-          <Link to="/profile" className="card feature-card">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-              <div style={{ width: '48px', height: '48px', borderRadius: '12px', backgroundColor: '#f1f5f9', color: '#475569', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <User size={24} />
-              </div>
-              <span className="badge" style={{ backgroundColor: '#f1f5f9', color: '#475569', border: '1px solid #cbd5e1' }}>User Profile</span>
-            </div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '8px' }}>My Account</h3>
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', marginBottom: '20px', lineHeight: 1.5 }}>
-              Manage your registered university credentials, student ID, department info, and profile bio.
-            </p>
-            <div className="card-footer-link">
-              <span>View Profile</span> <ChevronRight size={16} />
             </div>
           </Link>
 
@@ -426,6 +465,20 @@ const NavigationSidebar = () => {
           </NavLink>
 
           <NavLink 
+            to="/course-resources" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <BookOpen size={17} /> Course Resources
+          </NavLink>
+
+          <NavLink 
+            to="/flash-card-maker" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <Layers size={17} /> Flash Card Maker
+          </NavLink>
+
+          <NavLink 
             to="/class-routine" 
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
@@ -444,6 +497,13 @@ const NavigationSidebar = () => {
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
             <Star size={17} /> Faculty Reviews
+          </NavLink>
+
+          <NavLink 
+            to="/poll-survey" 
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+          >
+            <Vote size={17} /> Polls & Surveys
           </NavLink>
 
           <div style={{ fontSize: '0.7rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', padding: '10px 12px 2px' }}>
@@ -530,13 +590,15 @@ const AppRoutes = () => {
           <Route path="/" element={<DashboardHome />} />
           <Route path="/cgpa-calculator" element={<CgpaCalculator />} />
           <Route path="/course-planner" element={<CoursePlanner />} />
+          <Route path="/course-resources" element={<CourseResources />} />
+          <Route path="/flash-card-maker" element={<FlashCardMaker />} />
           <Route path="/class-routine" element={<ClassRoutine />} />
           <Route path="/study-planner" element={<StudyPlanner />} />
           <Route path="/faculty-reviews" element={<FacultyReviews />} />
+          <Route path="/poll-survey" element={<PollSurvey />} />
           <Route path="/resume-builder" element={<ResumeBuilder />} />
           <Route path="/cv-analyzer" element={<CVAnalyzer />} />
           <Route path="/job-finder" element={<JobFinder />} />
-          <Route path="/flash-card-maker" element={<FlashCardMaker />} />
           <Route path="/interview-simulator" element={<InterviewSimulator />} />
           <Route path="/alumni-networking" element={<AlumniNetworking />} />
           <Route path="/profile" element={<AuthPage />} />

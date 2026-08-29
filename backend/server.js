@@ -13,9 +13,11 @@ import alumniRoutes from './routes/alumniRoutes.js';
 import studyPlanRoutes from './routes/studyPlanRoutes.js';
 import cgpaRoutes from './routes/cgpaRoutes.js';
 import coursePlanRoutes from './routes/coursePlanRoutes.js';
-import flashCardRoutes from "./routes/flashCardRoutes.js";
 import classRoutineRoutes from './routes/classRoutineRoutes.js';
 import facultyReviewRoutes from './routes/facultyReviewRoutes.js';
+import flashCardRoutes from './routes/flashCardRoutes.js';
+import courseResourceRoutes from './routes/courseResourceRoutes.js';
+import pollRoutes from './routes/pollRoutes.js';
 
 dotenv.config();
 
@@ -39,8 +41,9 @@ app.use('/api/cgpa', cgpaRoutes);
 app.use('/api/course-plans', coursePlanRoutes);
 app.use('/api/class-routines', classRoutineRoutes);
 app.use('/api/faculty-reviews', facultyReviewRoutes);
-app.use('/api/faculty-reviews', facultyReviewRoutes);
 app.use('/api/flash-cards', flashCardRoutes);
+app.use('/api/course-resources', courseResourceRoutes);
+app.use('/api/polls', pollRoutes);
 
 // Health check endpoint
 app.get('/', (req, res) => {

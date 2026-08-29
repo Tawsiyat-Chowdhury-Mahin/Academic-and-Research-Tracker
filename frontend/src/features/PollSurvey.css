@@ -1,0 +1,274 @@
+.page-container {
+
+  padding: 30px;
+
+}
+
+
+.page-header h1 {
+
+  font-size: 36px;
+
+  margin-bottom: 8px;
+
+  color: #0f172a;
+
+}
+
+
+.page-header p {
+
+  color: #64748b;
+
+  font-size: 18px;
+
+}
+
+
+
+
+
+.resource-form-card {
+
+  margin-top: 30px;
+
+  padding: 30px;
+
+  background: white;
+
+  border-radius: 20px;
+
+  border: 1px solid #e2e8f0;
+
+}
+
+
+
+
+
+.resource-form-card form {
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 15px;
+
+}
+
+
+
+
+
+.resource-form-card input {
+
+  padding: 14px;
+
+  border-radius: 10px;
+
+  border: 1px solid #cbd5e1;
+
+  font-size: 16px;
+
+}
+
+
+
+
+
+.resource-form-card button {
+
+  padding: 12px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #2563eb;
+
+  color: white;
+
+  cursor: pointer;
+
+  font-size: 16px;
+
+}
+
+
+
+
+
+.resource-form-card button:hover {
+
+  background: #1d4ed8;
+
+}
+
+
+
+
+
+.section-title {
+
+  margin-top: 35px;
+
+  font-size: 30px;
+
+}
+
+
+
+
+
+.resource-grid {
+
+  margin-top: 20px;
+
+  display: grid;
+
+  grid-template-columns: repeat(
+
+    auto-fit,
+
+    minmax(280px, 1fr)
+
+  );
+
+  gap: 20px;
+
+}
+
+
+
+
+
+.resource-card {
+
+  padding: 25px;
+
+  border-radius: 18px;
+
+  background: white;
+
+  border: 1px solid #e2e8f0;
+
+}
+
+
+
+
+
+/* Poll option buttons */
+
+.resource-card button {
+
+  display: block;
+
+  width: 100%;
+
+  margin-top: 12px;
+
+  padding: 12px;
+
+  border-radius: 10px;
+
+  border: none;
+
+  background: #f1f5f9;
+
+  cursor: pointer;
+
+  font-size: 15px;
+
+}
+
+
+
+
+
+.resource-card button:hover {
+
+  background: #dbeafe;
+
+}
+
+
+
+
+
+/* Delete Poll button */
+
+.resource-card button:last-child {
+
+  background: #dc2626;
+
+  color: white;
+
+}
+
+
+
+
+
+.resource-card button:last-child:hover {
+
+  background: #b91c1c;
+
+}
+
+
+
+
+
+
+
+/* ========================= */
+/* Percentage Result Bar */
+/* ========================= */
+
+
+.percentage-container {
+
+  width: 100%;
+
+  height: 12px;
+
+  background: #e2e8f0;
+
+  border-radius: 10px;
+
+  margin-top: 8px;
+
+  overflow: hidden;
+
+}
+
+
+
+
+
+.percentage-bar {
+
+  height: 100%;
+
+  background: #2563eb;
+
+  border-radius: 10px;
+
+  transition: width 0.4s ease;
+
+}
+
+
+
+
+
+.percentage-text {
+
+  margin-top: 5px;
+
+  font-size: 14px;
+
+  color: #475569;
+
+}
