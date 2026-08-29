@@ -35,6 +35,7 @@ import FacultyReviews from './features/FacultyReviews';
 import ClassRoutine from './features/ClassRoutine';
 import CoursePlanner from './features/CoursePlanner';
 import CgpaCalculator from './features/CgpaCalculator';
+import FlashCardMaker from './features/FlashCardMaker';
 
 const DashboardHome = () => {
   const { user } = useAuth();
@@ -535,6 +536,7 @@ const AppRoutes = () => {
           <Route path="/resume-builder" element={<ResumeBuilder />} />
           <Route path="/cv-analyzer" element={<CVAnalyzer />} />
           <Route path="/job-finder" element={<JobFinder />} />
+          <Route path="/flash-card-maker" element={<FlashCardMaker />} />
           <Route path="/interview-simulator" element={<InterviewSimulator />} />
           <Route path="/alumni-networking" element={<AlumniNetworking />} />
           <Route path="/profile" element={<AuthPage />} />
