@@ -7,11 +7,11 @@
 
 ## 📌 Project Overview
 
-**Academic and Research Tracker** is an all-in-one collaborative academic portal designed for university students, researchers, and faculty. It integrates course management, semester planning, and academic scheduling with cutting-edge career tools including ATS resume optimization, live tech job feeds, AI-driven interview simulation, and university alumni mentorship.
+**Academic and Research Tracker** is an all-in-one collaborative academic portal designed for university students, researchers, and faculty. It integrates course management, semester planning, academic scheduling, and flashcard learning with cutting-edge career tools including ATS resume optimization, live tech job feeds, AI-driven interview simulation, student polling, and university alumni mentorship.
 
 ---
 
-## 🌟 Core Features & Modules
+## 🌟 Core Features & Modules (14 Active Modules)
 
 ### 🎓 Academic Hub
 1. **📊 CGPA Calculator (`/cgpa-calculator`)**
@@ -21,41 +21,50 @@
 2. **🗺️ Course Planning & Roadmaps (`/course-planner`)**
    * Advising assistant that maps completed courses, flags prerequisite chains, and balances credit workloads.
 
-3. **📅 Class Schedule & Academic Calendar (`/class-routine`)**
+3. **📚 Course Resources (`/course-resources`)**
+   * Central repository for sharing course lecture notes, slides, previous exam questions, and lab code links organized by course codes.
+
+4. **📇 Flash Card Maker (`/flash-card-maker`)**
+   * Interactive active recall system with flip animations for memorizing definitions, formulas, and technical terminology.
+
+5. **📅 Class Schedule & Academic Calendar (`/class-routine`)**
    * Visual weekly slot routine manager combined with official **BRACU 2026 Academic Calendar** milestones, holidays, and exam dates.
 
-4. **⏱️ Study Planner (`/study-planner`)**
+6. **⏱️ Study Planner (`/study-planner`)**
    * Personalized daily study timeline and monthly exam milestone planner.
 
-5. **⭐ Faculty Reviews (`/faculty-reviews`)**
+7. **⭐ Faculty Reviews (`/faculty-reviews`)**
    * Transparent faculty evaluations, course advising ratings, and student feedback using G-Suite single sign-on.
+
+8. **🗳️ Polls & Surveys (`/poll-survey`)**
+   * Create student polls, vote on class topics, and view real-time percentage results and community opinions.
 
 ---
 
 ### 💼 Career & Networking Hub
-6. **👥 Alumni Networking & Mentorship (`/alumni-networking`)**
+9. **👥 Alumni Networking & Mentorship (`/alumni-networking`)**
    * Exclusive directory of authentic **BRAC University Alumni and Faculty** (e.g., Nazmul Islam Pranto, Md. Tawhid Anwar, Partha Bhoumik, Umme Jannat Taposhi, Tasnim Ahsan Prome).
-   * Direct LinkedIn profile links and interactive **1-on-1 Mentorship Request** modals.
+   * Verified `@bracu.ac.bd` email addresses with 1-click copy & mailto, direct LinkedIn profiles, and **1-on-1 Mentorship Request** modals.
 
-7. **💼 Job & Internship Finder (`/job-finder`)**
-   * Live software engineering jobs and student tutoring/internship openings scraped from **[Bdjobs.com](https://bdjobs.com/h/)** and university departments.
-   * Multi-filter search (location, keyword, role type) and persistent bookmarking.
+10. **💼 Job & Internship Finder (`/job-finder`)**
+    * Live software engineering jobs and student tutoring/internship openings scraped from **[Bdjobs.com](https://bdjobs.com/h/)** and university departments.
+    * Multi-filter search (location, keyword, role type) and persistent bookmarking.
 
-8. **📄 Resume Builder (`/resume-builder`)**
-   * Full-featured CV builder with dynamic template switching (**Classic Academic** serif vs. **Modern Corporate** sidebar) and one-click PDF printing.
+11. **📄 Resume Builder (`/resume-builder`)**
+    * Full-featured CV builder with dynamic template switching (**Classic Academic** serif vs. **Modern Corporate** sidebar), LinkedIn/GitHub profile URLs with smart external links, and one-click PDF printing.
 
-9. **🤖 CV Match Analyzer & ATS Optimizer (`/cv-analyzer`)**
-   * Cross-references CV text against job descriptions to calculate categorized fit percentages.
-   * **Actionable CV Improvement Suite**:
-     * ✍️ **Before vs. After Bullet Point Rewrites** (transforming passive statements into quantified action bullets).
-     * 🎯 **Keyword Placement Strategy Matrix** (recommends exact sections to insert missing keywords).
-     * 🛡️ **ATS Compliance Audit Checklist** (word count, action verb density, metrics presence).
-     * 📝 **Tailored Elevator Pitch Generator** with 1-click clipboard copy.
+12. **🤖 CV Match Analyzer & ATS Optimizer (`/cv-analyzer`)**
+    * Cross-references CV text against job descriptions to calculate categorized fit percentages across Languages, Frameworks, and Tools.
+    * **Actionable CV Improvement Suite**:
+      * ✍️ **Before vs. After Bullet Point Rewrites** (transforming passive statements into quantified action bullets).
+      * 🎯 **Keyword Placement Strategy Matrix** (recommends exact sections to insert missing keywords).
+      * 🛡️ **ATS Compliance Audit Checklist** (word count, action verb density, metrics presence).
+      * 📝 **Tailored Elevator Pitch Generator** with 1-click clipboard copy.
 
-10. **🎙️ Interactive Interview Simulator (`/interview-simulator`)**
-    * Voiceover question read-aloud via **Web Speech API (TTS)** and **60-second pressure countdown timer**.
+13. **🎙️ Interactive Interview Simulator (`/interview-simulator`)**
+    * Focused text simulator with a **60-second pressure countdown timer**.
     * Automated keyword-based scoring rubrics and instant feedback.
-    * **5 Specialized Tracks**:
+    * **🌟 100% Benchmark Model Answers** with a 1-click **Copy Answer** button for every question across all 5 specialized tracks:
       * 🏗️ **Software Engineering Models & Architecture** *(MVC, Clean Architecture, SOLID, Microservices, CAP Theorem)*
       * 🗄️ **Database Systems & Data Modeling** *(Normalization 1NF-BCNF, Indexing, ACID vs. BASE, Sharding)*
       * ⚙️ **Backend & Distributed Systems** *(Node, Express, JWT, Microservices)*
@@ -65,7 +74,7 @@
 ---
 
 ### 🔐 Authentication & User Accounts
-11. **User Profile & Authentication (`/profile` / `/auth`)**
+14. **User Profile & Authentication (`/profile` / `/auth`)**
     * Role-based access control (**Student**, **Researcher**, **Faculty / Advisor**).
     * Customized for BRAC University with **G-Suite emails** (`@g.bracu.ac.bd`), **8-digit Student ID format** (`22101456`), and official **Department IDs** (CSE-01, CS-01, EEE-02, ECE-03, MNS-04, BBS-05, etc.).
     * 1-Click **Demo Student / Demo Faculty** login for instant testing.
@@ -77,92 +86,34 @@
 ```
 Academic and Research Tracker/
 ├── backend/
-│   ├── config/
-│   │   └── db.js                    # MongoDB Atlas connection with zero-crash fallback
-│   ├── models/                      # [M]ODELS: 11 Mongoose Database Schemas
-│   │   ├── User.js                  # User Accounts & Roles
-│   │   ├── Resume.js                # CV / Resume Builder
-│   │   ├── CVAnalysis.js            # Match Analyses & ATS Reports
-│   │   ├── Job.js                   # Bdjobs & Tech Listings
-│   │   ├── Interview.js             # Simulation Attempts & Grading
-│   │   ├── Alumni.js                # BRACU Alumni Profiles
-│   │   ├── StudyPlan.js             # Daily & Monthly Study Schedules
-│   │   ├── CgpaRecord.js            # Semester CGPA Records
-│   │   ├── CoursePlan.js            # Prerequisite Roadmaps
-│   │   ├── ClassRoutine.js          # Weekly Schedules & Calendar
-│   │   └── FacultyReview.js         # Faculty Ratings & Feedback
-│   ├── controllers/                 # [C]ONTROLLERS: Business Logic & Data Seeders
-│   ├── routes/                      # ROUTES: Express REST API Endpoints
-│   ├── .env.example
+│   ├── config/             # MongoDB Atlas connection & fallback
+│   ├── controllers/        # MVC Business logic controllers (14 modules)
+│   ├── models/             # Mongoose Schemas (User, Resume, Job, Alumni, FlashCard, Poll, Resource, etc.)
+│   ├── routes/             # RESTful API routing endpoints
+│   └── server.js           # Express application entrypoint (Port 5000)
+├── frontend/
+│   ├── src/
+│   │   ├── context/        # React AuthContext (JWT & session persistence)
+│   │   ├── features/       # 14 UI Feature components & styles
+│   │   ├── App.jsx         # Sidebar navigation & Declarative React Router
+│   │   └── main.jsx        # Root entrypoint
 │   ├── package.json
-│   └── server.js                    # Backend Server Entrypoint
-│
-└── frontend/
-    ├── src/
-    │   ├── context/
-    │   │   └── AuthContext.jsx       # Global Auth State & Session Management
-    │   ├── features/                # [V]IEWS: 11 Feature Components
-    │   │   ├── AuthPage.jsx
-    │   │   ├── CgpaCalculator.jsx
-    │   │   ├── CoursePlanner.jsx
-    │   │   ├── ClassRoutine.jsx
-    │   │   ├── StudyPlanner.jsx
-    │   │   ├── FacultyReviews.jsx
-    │   │   ├── ResumeBuilder.jsx
-    │   │   ├── CVAnalyzer.jsx
-    │   │   ├── JobFinder.jsx
-    │   │   ├── InterviewSimulator.jsx
-    │   │   └── AlumniNetworking.jsx
-    │   ├── App.jsx                  # Main Navigation Layout & React Router
-    │   ├── main.jsx                 # Vite Entrypoint
-    │   └── index.css                # Global Design System
-    ├── package.json
-    └── vite.config.js
+│   └── vite.config.js      # Vite build configuration (Port 5173)
+└── README.md
 ```
-
----
-
-## 🗄️ Database Setup (MongoDB Atlas)
-
-The platform is connected to a shared **MongoDB Atlas Cloud Cluster** so all team members and evaluators share the exact same live database:
-
-1. In your `backend/` directory, create a `.env` file:
-   ```env
-   PORT=5000
-   MONGO_URI=mongodb+srv://tawsiyatc_db_user:9Xgca5GSwU40ddyW@cluster0.wpuryjm.mongodb.net/academic_tracker_db?retryWrites=true&w=majority&appName=Cluster0
-   JWT_SECRET=academic_tracker_super_secret_jwt_key_2026
-   ```
-
-2. **MongoDB Compass Inspection**:
-   * Open **MongoDB Compass**.
-   * Paste the `MONGO_URI` connection string above and connect.
-   * Database Name: **`academic_tracker_db`**
-   * Active Collections:
-     * `users`
-     * `alumnis`
-     * `jobs`
-     * `resumes`
-     * `cvanalyses`
-     * `interviews`
-     * `studyplans`
-     * `cgparecords`
-     * `courseplans`
-     * `classroutines`
-     * `facultyreviews`
 
 ---
 
 ## 🚀 Quick Start Guide
 
 ### Prerequisites
-* **Node.js** (v18.x or higher)
-* **npm** (v9.x or higher)
-* **Git**
+* **Node.js** (v18 or newer)
+* **npm** (v9 or newer)
 
-### 1. Clone the Repository
+### 1. Clone & Setup
 ```bash
 git clone https://github.com/Tawsiyat-Chowdhury-Mahin/Academic-and-Research-Tracker.git
-cd Academic-and-Research-Tracker
+cd "Academic and Research Tracker"
 ```
 
 ### 2. Backend Setup
@@ -170,49 +121,18 @@ cd Academic-and-Research-Tracker
 cd backend
 npm install
 npm run dev
+# Backend starts on http://localhost:5000 (connected to MongoDB Atlas)
 ```
-* Backend runs on **`http://localhost:5000`**
 
-### 3. Frontend Setup (in a separate terminal)
+### 3. Frontend Setup
 ```bash
-cd frontend
+cd ../frontend
 npm install
 npm run dev
+# Frontend starts on http://localhost:5173
 ```
-* Frontend runs on **`http://localhost:5173`**
 
 ---
 
-## 🔑 Demo Login Credentials
-
-You can use the **1-Click Demo Login** buttons on the login page or enter:
-
-| Account Type | Email | Password | Role |
-| :--- | :--- | :--- | :--- |
-| **Demo Student** | `demo@student.edu` | `password123` | Student |
-| **Demo Faculty** | `faculty@uni.edu` | `faculty123` | Faculty / Advisor |
-
----
-
-## 🌿 Git Workflow for Collaborators
-
-1. **Pull Latest Changes**:
-   ```bash
-   git checkout main
-   git pull origin main
-   ```
-2. **Create Feature Branch**:
-   ```bash
-   git checkout -b feature/module-name
-   ```
-3. **Commit & Push**:
-   ```bash
-   git add .
-   git commit -m "feat: your feature summary"
-   git push origin feature/module-name
-   ```
-
----
-
-## 📜 License
-Developed for University Academic & Collaborative Course Evaluation © 2026.
+## 👥 Contributors
+Developed collaboratively for CSE Academic and Research Readiness © 2026.
